@@ -29,6 +29,9 @@ using System.Collections.Generic;
 using UnityEngine.Video;
 using System.IO;
 using UnityEngine.UI;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace AdolescenceNovel
 {
     //Singletonパターンひとつだけ生成
@@ -248,14 +251,28 @@ namespace AdolescenceNovel
         {
             //クリアデータ
             StaticData.Initial();
-            StreamReader sr;
+            string iniFilePath = "";
 #if UNITY_STANDALONE_WIN
-            sr = new StreamReader(Application.streamingAssetsPath + "/ini/maintext.ini");
-            
+            iniFilePath = Application.streamingAssetsPath + "/ini/";
 #elif UNITY_STANDALONE_OSX
-            sr = new StreamReader(Application.streamingAssetsPath + "/ini/maintext.ini");
+            iniFilePath = Application.streamingAssetsPath + "/ini/";
 #endif
+            iniFilePath += "Emaintext.ini";
+            StreamReader sr = new StreamReader(iniFilePath);
             string all_line = sr.ReadToEnd();
+            AesCryptoServiceProvider aes = new AesCryptoServiceProvider
+            {
+                BlockSize = 128,
+                KeySize = 128,
+                IV = Encoding.UTF8.GetBytes(Compile.AesIV2),
+                Key = Encoding.UTF8.GetBytes(Compile.AesKey2),
+                Mode = CipherMode.CBC,
+                Padding = PaddingMode.PKCS7,
+            };
+            ICryptoTransform encrypt = aes.CreateDecryptor();
+            byte[] src = System.Convert.FromBase64String(all_line);
+            ICryptoTransform decrypt = aes.CreateDecryptor();
+            all_line = Encoding.Unicode.GetString(decrypt.TransformFinalBlock(src, 0, src.Length));
             all_line = all_line.Replace(" ", "");
             all_line = all_line.Replace("\t", "");
             all_line = all_line.Replace("\r", "");
