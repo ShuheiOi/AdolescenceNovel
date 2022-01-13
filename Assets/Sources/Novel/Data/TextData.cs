@@ -175,7 +175,7 @@ namespace AdolescenceNovel
             
             instance.textbox[name].text.text = content;
             instance.textbox[name].text.fontSize = fontSize;
-            instance.textbox[name].text.color = new Color(colorR, colorG, colorB, colorA);
+            instance.textbox[name].text.color = new Color((float)colorR/255, (float)colorG/255, (float)colorB/255, (float)colorA/255);
         }
         public void SetTextboxContent(string name, string content, int fontSize, float colorR, float colorG, float colorB, float colorA, string fontName)
         {

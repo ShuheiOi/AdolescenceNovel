@@ -54,7 +54,7 @@ namespace AdolescenceNovel
                 int g_int = System.Convert.ToInt32(g, 16);
                 int b_int = System.Convert.ToInt32(b, 16);
 
-                SpriteData.instance.DrawBackGround(new Color(r_int/255, g_int/255, b_int/255));                
+                SpriteData.instance.DrawBackGround(new Color((float)r_int/255, (float)g_int /255, (float)b_int /255));                
             }
             else
             {
