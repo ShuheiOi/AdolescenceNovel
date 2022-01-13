@@ -77,7 +77,7 @@ SOFTWARE.
 %left ADD SUB GT LT GE LE EQ ASSIGN MOD
 %left MUL DIV
 %type<num> NUMBER
-%type<str> STRING VARIABLE string if_boolean_var CONVERSATION number FUNCTION_NAME name color COLOR place boolean FLAGS flag select_args calculate_value number_var string_var boolean_var calculate_number
+%type<str> STRING VARIABLE string if_boolean_var CONVERSATION number FUNCTION_NAME name color COLOR place boolean FLAGS flag select_args calculate_value number_var string_var boolean_var calculate_number calculate_string calculate_boolean
 %type<boolean> BOOLEAN
 
 %start statement
@@ -108,6 +108,8 @@ calculation
 	;
 calculate_value
 	: calculate_number {$$ = $1;}
+	| calculate_string {$$ = $1;}
+	| calculate_boolean {$$ = $1;}
 	| number			{$$ = $1;}
 	| string {$$ = $1;}
 	| boolean {$$ = $1;}
@@ -116,10 +118,23 @@ calculate_number
 	: VARIABLE ADD number { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"ADD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
 	| number ADD VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"ADD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
 	| VARIABLE ADD VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"ADD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE SUB number { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"SUB vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| number SUB VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"SUB vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE SUB VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"SUB vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE MUL number { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MUL vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| number MUL VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MUL vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE MUL VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MUL vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE DIV number { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"DIV vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| number DIV VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"DIV vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE DIV VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"DIV vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE MOD number { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MOD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| number MOD VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MOD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE MOD VARIABLE { int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MOD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
 	;
 number_var
 	: VARIABLE				{ $$ = $1;}
 	| number				{ $$ = $1;}
+	| calculate_number		{ $$ = $1;}
 	;
 number
 	: NUMBER				{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"LET vn %s %d\n",$$.c_str(),$1); line_num++; }
@@ -130,17 +145,21 @@ number
 	| number MUL number   	{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"DIV vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
 	| number MOD number   	{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"MOD vvv %s %s %s\n",  $1.c_str(),     $3.c_str(), $$.c_str()); line_num++; }
 	;
+calculate_string
+	: string ADD VARIABLE		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"ADD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	| VARIABLE ADD string		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"ADD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
+	;
 string_var
 	: VARIABLE			{$$ = $1;}
 	| string			{$$ = $1;}
+	| calculate_string	{$$ = $1;}
 	;
 string
 	: STRING				{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"LET vs %s %s\n",$$.c_str(),$1.c_str()); line_num++; }
 	| string ADD string		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"ADD vvv %s %s %s\n",	$1.c_str(),		$3.c_str(),	$$.c_str()); line_num++; }
 	;
-boolean_var
-	: VARIABLE					{$$ = $1;}
-	| number GT VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"GT vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
+calculate_boolean
+	: number GT VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"GT vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
 	| number LT VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"LT vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
 	| number GE VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"GE vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
 	| number LE VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"LE vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
@@ -155,7 +174,11 @@ boolean_var
 	| VARIABLE GE VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"GE vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
 	| VARIABLE LE VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"LE vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}
 	| VARIABLE EQ VARIABLE 		{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"EQ vvv %s %s %s\n",$1.c_str(),$3.c_str(),$$.c_str());line_num++;}	
+	;
+boolean_var
+	: VARIABLE					{$$ = $1;}
 	| boolean					{$$ = $1;}
+	| calculate_boolean			{$$ = $1;}
 	;
 boolean
 	: BOOLEAN				{ int now = line_num; $$ = "_" + to_string(now); fprintf(script_file,"LET vb %s %d\n",$$.c_str(),$1); line_num++;}
@@ -303,10 +326,7 @@ if_end
 	: BLOCK_CLOSE {jump_list["__" + to_string(indent_block.top())]=line_num;indent_block.pop();}
 	;
 for_state
-	: FOR OPEN for_calc COMMA for_boolean COMMA for_calc CLOSE for_contents {}
-	;
-for_calc
-	: calculation {}
+	: FOR OPEN calculation COMMA for_boolean COMMA calculation CLOSE for_contents {}
 	;
 for_boolean
 	: boolean_var { for_num++;fprintf(script_file,"NOTCOMPARE vn %s __for_break%d\n",$1.c_str(),for_num);indent_block.push(line_num); line_num++;}

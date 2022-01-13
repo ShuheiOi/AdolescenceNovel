@@ -43,7 +43,7 @@ namespace AdolescenceNovel
         }
         public bool Execute(Maintext nowstate, MaintextContext context)
         {
-            if (KeyConfig.instance.CheckSubmit())
+            if (KeyConfig.instance.CheckSubmit() || KeyConfig.instance.CheckNovelSkip())
             {
                 context.ChangeStatus(new MAINTEXT_Write());
             }

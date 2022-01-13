@@ -35,7 +35,7 @@ namespace AdolescenceNovel
         private const string AesIV = @"!QAZ2WSX#EDC4RFV";
         private const string AesKey = @"5TGB&YHN7UJM(IK<";
         const int ATTR_CHECK = 1;
-        public static bool encryption = true;
+        public static bool encryption = false;
         public Compile(List<string> filename)
         {
             StreamReader sr;
