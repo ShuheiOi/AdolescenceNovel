@@ -1,0 +1,492 @@
+variable2 clearData
+assign  = 
+variable2 clearData
+plus уб}
+suti 5
+finish 
+
+kako ,
+suti 1
+finish 
+
+variable2 clearData
+assign  = 
+variable2 clearData
+plus ыс}
+suti 3
+finish 
+
+finish 
+
+finish 
+
+kako ,
+suti 10
+kako ,
+suti 1000
+finish 
+
+finish 
+
+kako ,
+suti 1
+finish 
+
+finish 
+
+kako ,
+suti 10
+kako ,
+suti 1000
+finish 
+
+finish 
+
+finish 
+
+variable l
+kako ,
+kako ,
+suti 1
+finish 
+
+finish 
+
+variable r
+kako ,
+kako ,
+suti 10
+kako ,
+suti 1000
+finish 
+
+finish 
+
+variable l
+kako ,
+suti 1
+finish 
+
+finish 
+
+variable r
+kako ,
+suti 10
+kako ,
+suti 1000
+finish 
+
+finish 
+
+variable2 rightPicture
+kako ,
+kako ,
+suti 0
+kako ,
+suti 0
+finish 
+
+variable2 leftPicture
+kako ,
+kako ,
+suti 100
+kako ,
+suti 0
+finish 
+
+finish 
+
+suti 1
+finish 
+
+finish 
+
+variable2 rightPicture
+finish 
+
+suti 10
+kako ,
+suti 1000
+finish 
+
+finish 
+
+variable2 rightPicture
+kako ,
+kako ,
+suti 0
+kako ,
+suti 0
+finish 
+
+finish 
+
+suti 1
+finish 
+
+finish 
+
+finish 
+
+suti 1
+finish 
+
+variable2 noRightPicture
+kako ,
+kako ,
+suti 0
+kako ,
+suti 0
+finish 
+
+variable2 noLeftPicture
+kako ,
+kako ,
+suti 1000
+kako ,
+suti 0
+finish 
+
+suti 1
+finish 
+
+finish 
+
+finish 
+
+variable2 noRightPicture
+kako ,
+suti 1
+finish 
+
+suti 10
+kako ,
+suti 1000
+finish 
+
+variable2 noLeftPicture
+kako ,
+suti 1
+finish 
+
+suti 10
+kako ,
+suti 1000
+finish 
+
+finish 
+
+variable2 noRightPicture
+kako ,
+suti 0
+kako ,
+suti 10
+finish 
+
+suti 10
+kako ,
+suti 100
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+variable2 firstButton
+kako ,
+suti 100
+kako ,
+suti 50
+kako ,
+finish 
+
+variable2 firstButton
+kako ,
+suti 0
+kako ,
+suti 0
+kako ,
+kako ,
+finish 
+
+variable2 firstButton
+kako ,
+suti 0
+kako ,
+suti 50
+kako ,
+kako ,
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+variable2 testBox
+kako ,
+kako ,
+suti 0
+kako ,
+suti 0
+kako ,
+suti 100
+kako ,
+suti 50
+kako ,
+suti 0
+kako ,
+suti 0
+kako ,
+suti 100
+kako ,
+suti 50
+kako ,
+suti 100
+finish 
+
+variable2 testBox
+kako ,
+kako ,
+suti 50
+kako ,
+kako ,
+finish 
+
+finish 
+
+kako ,
+kako ,
+suti 60
+kako ,
+kako ,
+suti 50
+kako ,
+suti 0
+kako ,
+suti 0
+finish 
+
+finish 
+
+variable a
+assign  = 
+suti 1000000
+finish 
+
+variable a
+assign  =
+suti 5
+plus +
+suti 3
+finish 
+
+variable a
+assign  =
+variable a
+plus З
+suti 10
+finish 
+
+finish 
+
+variable if
+kakos (
+variable a
+suti 5
+kakof )
+finish 
+
+kakos (
+kakof )
+finish 
+
+finish 
+
+variable if
+kakos (
+variable a
+suti 8
+kakof )
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+variable b
+assign  = 
+suti 1
+finish 
+
+kakos (
+variable i
+assign =
+suti 0
+kako ,
+variable i
+suti 10
+kako ,
+variable i
+assign  = 
+variable i
+plus +
+suti 1
+kakof  )
+finish 
+
+variable 	if
+kakos (
+variable i
+suti 2
+kakof )
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+variable 	if
+kakos (
+variable i
+suti 3
+kakof )
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+finish 
+
+kakos (
+kakof )
+finish 
+
+finish 
+
+finish 
+

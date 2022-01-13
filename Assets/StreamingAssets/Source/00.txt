@@ -1,0 +1,139 @@
+clearData = clearData + 5
+bg #000000,1
+clearData = clearData + 3
+こんにちは{clearData}
+バックグラウンド表示：１
+bg #FFFFFF,10,1000
+バックグラウンド表示：２
+bg "TestImage/background",1
+バックグラウンド表示：３
+bg "TestImage/background2",10,1000
+バックグラウンド表示：４
+ああああああああああああああああああああああああああああああああああああああああ(あああ/あああああああああ)あああああ(あああ/あああああああああ)
+ld l,"TestImage/test2",1
+画像表示（固定）：１
+ld r,"TestImage/test1",10,1000
+画像表示（固定）：２
+cl l,1
+画像消去（固定）：１
+cl r,10,1000
+画像消去（固定）：２
+lsp rightPicture,"TestImage/test1",0,0
+lsp leftPicture,"TestImage/test2",100,0
+画像表示（自由座標）：１
+print 1
+表示処理
+csp rightPicture
+print 10,1000
+削除処理
+lsp rightPicture,"TestImage/test1",0,0
+画像表示（自由座標）：１
+print 1
+csp
+削除処理
+print 1
+lsph noRightPicture,"TestImage/test1",0,0
+lsph noLeftPicture,"TestImage/test2",1000,0
+print 1
+*loop
+画像表示（非表示）（自由座標）
+vsp noRightPicture,1
+print 10,1000
+vsp noLeftPicture,1
+print 10,1000
+画像表示変更
+msp noRightPicture,0,10
+print 10,100
+画像の移動
+[あいうえお]こんにちは
+　(超電磁砲/レールガン)
+bgm "TestSound/title"
+bgmstop
+se "TestSound/critical"
+movie "TestSound/Coffee-45358"
+defbutton firstButton,100,50,"TestImage/textbox"
+button firstButton,0,0,"Hello",*First
+button firstButton,0,50,"World",*Second
+select
+goto *loop
+*First
+ふぁーすと
+*Second
+せかんど
+textdef testBox,"TestImage/textbox",0,0,100,50,0,0,100,50,100
+textwrite testBox,"こんにちは",50,#000000,"font/NotoSansJP-Black_SDF-large"
+textoff
+footerregist "TestImage/textbox","これがフッターです",60,"font/NotoSansJP-Black_SDF-large",50,0,0
+footeron
+a = 1000000
+a =5+3
+a =a+10
+
+if(a>5){
+	Hello()
+}
+if(a>8)
+{
+	さようなら
+}
+b = 1
+for(i=0,i<10,i = i + 1 ){
+	if(i == 2){
+		continue
+	}
+	今の値は{i}です。
+	if(i == 3)
+	{
+		break
+	}
+}
+外に出ました。
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;textdef buttonText,"TestImage/textbox",0,0,100,50,0,0,100,50,100
+;defbutton start,"TestImage/textbox",200,70,"backgound"
+;button start,1720,0,"day0",*day0,""
+;button start,1720,80,"day1",*day1,""
+;texton buttonText
+;select buttonText,"test1","test2","test3"
+;
+;*day0
+;でいゼロ
+;*day1
+;でいワン
+;値は{clearData}
+;clearData = clearData + 5
+;でいゼロ
+;値は{clearData}
+;clearData = clearData + 5
+;でいゼロ
+;値は{clearData}
+;clearData = clearData + 5
+;でいゼロ
+;値は{clearData}
+;clearData = clearData + 5
+;でいゼロ
+;値は{clearData}
+;clearData = clearData + 5
+;でいゼロ
+;値は{clearData}
+;clearData = clearData + 5
+;でいゼロ
+;値は{clearData}
+;clearData = clearData + 5

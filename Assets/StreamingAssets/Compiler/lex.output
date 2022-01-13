@@ -1,0 +1,4709 @@
+Terminals unused in grammar
+
+   BLOCK_START_FIN
+
+
+Grammar
+
+    0 $accept: statement $end
+
+    1 statement: %empty
+    2          | statement COMMENT FIN
+    3          | statement if_state FIN
+    4          | statement calculation FIN
+    5          | statement for_state FIN
+    6          | statement conversation FIN
+    7          | statement command FIN
+    8          | statement function FIN
+    9          | statement use_function FIN
+   10          | statement flag_mark FIN
+   11          | statement FIN
+
+   12 flag_mark: FLAGS
+
+   13 flag: FLAGS
+
+   14 calculation: VARIABLE ASSIGN calculate_value
+   15            | VARIABLE ASSIGN VARIABLE
+
+   16 calculate_value: calculate_number
+   17                | string
+   18                | boolean
+
+   19 calculate_number: VARIABLE ADD number
+   20                 | number ADD VARIABLE
+   21                 | VARIABLE ADD VARIABLE
+
+   22 number_var: VARIABLE
+   23           | number
+
+   24 number: NUMBER
+   25       | OPEN number CLOSE
+   26       | number ADD number
+   27       | number SUB number
+   28       | number DIV number
+   29       | number MUL number
+   30       | number MOD number
+
+   31 string_var: VARIABLE
+   32           | string
+
+   33 string: STRING
+   34       | string ADD string
+
+   35 boolean_var: VARIABLE
+   36            | number GT VARIABLE
+   37            | number LT VARIABLE
+   38            | number GE VARIABLE
+   39            | number LE VARIABLE
+   40            | number EQ VARIABLE
+   41            | VARIABLE GT number
+   42            | VARIABLE LT number
+   43            | VARIABLE GE number
+   44            | VARIABLE LE number
+   45            | VARIABLE EQ number
+   46            | VARIABLE GT VARIABLE
+   47            | VARIABLE LT VARIABLE
+   48            | VARIABLE GE VARIABLE
+   49            | VARIABLE LE VARIABLE
+   50            | VARIABLE EQ VARIABLE
+   51            | boolean
+
+   52 boolean: BOOLEAN
+   53        | OPEN boolean CLOSE
+   54        | number GT number
+   55        | number LT number
+   56        | number GE number
+   57        | number LE number
+   58        | number EQ number
+
+   59 color: COLOR
+
+   60 place: VARIABLE
+   61      | FUNCTION_NAME
+
+   62 command: LD place COMMA string_var COMMA number_var COMMA number_var
+   63        | LD place COMMA string_var COMMA number_var
+   64        | LD place COMMA string_var
+   65        | BG string_var COMMA number_var COMMA number_var
+   66        | BG string_var COMMA number_var
+   67        | BG string_var
+   68        | BG color COMMA number_var COMMA number_var
+   69        | BG color COMMA number_var
+   70        | BG color
+   71        | CL place COMMA number_var COMMA number_var
+   72        | CL place COMMA number_var
+   73        | CL place
+   74        | CHANGESCENE string_var
+   75        | LSP place COMMA string_var COMMA number_var COMMA number_var COMMA boolean
+   76        | LSP place COMMA string_var COMMA number_var COMMA number_var
+   77        | LSPH place COMMA string_var COMMA number_var COMMA number_var COMMA boolean
+   78        | LSPH place COMMA string_var COMMA number_var COMMA number_var
+   79        | MOVIE string_var
+   80        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var
+   82        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var
+   83        | BUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA flag
+   84        | SELECTN
+   85        | SELECT place COMMA select_args
+   86        | BGM string_var COMMA string_var
+   87        | BGM string_var
+   88        | BGMSTOP
+   89        | SE string_var COMMA string_var
+   90        | SE string_var
+   91        | TEXTOFFN
+   92        | TEXTONN
+   93        | TEXTOFF place
+   94        | TEXTON place
+   95        | VSP place COMMA number_var
+   96        | CSP place
+   97        | CSPN
+   98        | MSP place COMMA number_var COMMA number_var
+   99        | BGMVOL number_var
+  100        | QUAKE number_var COMMA number_var COMMA number_var
+  101        | QUAKE number_var COMMA number_var COMMA number_var COMMA number_var
+  102        | QUAKE number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  103        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+  105        | TEXTSPEED number_var
+  106        | FOOTERON
+  107        | FOOTEROFF
+  108        | GOTO flag
+  109        | FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+  110        | DELAY number_var
+  111        | TEXTWRITE place COMMA string_var COMMA number_var COMMA color COMMA string_var
+  112        | SAVE string_var
+  113        | LOAD string_var
+  114        | RELEASE
+  115        | PRINT number_var
+  116        | PRINT number_var COMMA number_var
+
+  117 select_args: string_var
+  118            | string_var COMMA select_args
+
+  119 function: DEF function_name_check OPEN args CLOSE function_contents
+  120         | DEF function_name_check OPEN CLOSE function_contents
+
+  121 function_name_check: FUNCTION_NAME
+
+  122 function_name: FUNCTION_NAME
+
+  123 use_function: function_name OPEN args_push CLOSE
+  124             | function_name OPEN CLOSE
+
+  125 args_push: COMMA args_number args_push
+  126          | COMMA args_str args_push
+  127          | COMMA args_var args_push
+  128          | args_number args_push
+  129          | args_str args_push
+  130          | args_var args_push
+  131          | args_number
+  132          | args_str
+  133          | args_var
+  134          | COMMA args_number
+  135          | COMMA args_str
+  136          | COMMA args_var
+
+  137 args_var: VARIABLE
+
+  138 args_number: number
+
+  139 args_str: string
+
+  140 args: VARIABLE COMMA args
+  141     | VARIABLE
+
+  142 function_contents: function_start function_statement function_end
+  143                  | FIN function_start FIN function_statement function_end
+
+  144 function_start: BLOCK_OPEN
+
+  145 function_end: BLOCK_CLOSE
+
+  146 function_statement: %empty
+  147                   | function_statement calculation FIN
+  148                   | function_statement if_state FIN
+  149                   | function_statement conversation FIN
+  150                   | function_statement command FIN
+  151                   | function_statement COMMENT FIN
+  152                   | function_statement use_function FIN
+  153                   | function_statement FIN
+
+  154 if_state: IF OPEN if_boolean_var CLOSE if_contents
+
+  155 if_boolean_var: boolean_var
+
+  156 if_contents: if_starts statement if_end
+  157            | FIN if_starts FIN statement if_end
+
+  158 if_starts: BLOCK_OPEN
+
+  159 if_end: BLOCK_CLOSE
+
+  160 for_state: FOR OPEN for_calc COMMA for_boolean COMMA for_calc CLOSE for_contents
+
+  161 for_calc: calculation
+
+  162 for_boolean: boolean_var
+
+  163 for_contents: for_starts statement for_end
+  164             | FIN for_starts FIN statement for_end
+
+  165 for_starts: BLOCK_OPEN
+
+  166 for_end: BLOCK_CLOSE
+
+  167 conversation: CONVERSATION
+  168             | name CONVERSATION
+
+  169 name: NAME_BLOCK_OPEN CONVERSATION NAME_BLOCK_CLOSE
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256)
+NUMBER (258) 24
+BOOLEAN (259) 52
+STRING (260) 33
+FLAGS (261) 12 13
+VARIABLE (262) 14 15 19 20 21 22 31 35 36 37 38 39 40 41 42 43 44 45
+    46 47 48 49 50 60 137 140 141
+OPEN (263) 25 53 119 120 123 124 154 160
+CLOSE (264) 25 53 119 120 123 124 154 160
+BLOCK_OPEN (265) 144 158 165
+BLOCK_CLOSE (266) 145 159 166
+COMMA (267) 62 63 64 65 66 68 69 71 72 75 76 77 78 80 81 82 83 85 86
+    89 95 98 100 101 102 103 104 109 111 116 118 125 126 127 134 135
+    136 140 160
+COMMENT (268) 2 151
+COLOR (269) 59
+FIN (270) 2 3 4 5 6 7 8 9 10 11 143 147 148 149 150 151 152 153 157
+    164
+IF (271) 154
+FOR (272) 160
+BLOCK_START_FIN (273)
+CONVERSATION (274) 167 168 169
+DEF (275) 119 120
+FUNCTION_NAME (276) 61 121 122
+NAME_BLOCK_OPEN (277) 169
+NAME_BLOCK_CLOSE (278) 169
+LD (279) 62 63 64
+CL (280) 71 72 73
+BG (281) 65 66 67 68 69 70
+MOVIE (282) 79
+LSP (283) 75 76
+LSPH (284) 77 78
+PRINT (285) 115 116
+VSP (286) 95
+CSP (287) 96
+CSPN (288) 97
+MSP (289) 98
+BGMVOL (290) 99
+QUAKE (291) 100 101 102
+FOOTERREGIST (292) 109
+DEFBUTTON (293) 80 81 82
+BUTTON (294) 83
+SELECT (295) 85
+SELECTN (296) 84
+CHANGESCENE (297) 74
+TEXTDEF (298) 103 104
+TEXTSPEED (299) 105
+FOOTERON (300) 106
+FOOTEROFF (301) 107
+GOTO (302) 108
+SAVE (303) 112
+LOAD (304) 113
+BGM (305) 86 87
+BGMSTOP (306) 88
+SE (307) 89 90
+DELAY (308) 110
+RELEASE (309) 114
+TEXTOFF (310) 93
+TEXTON (311) 94
+TEXTONN (312) 92
+TEXTOFFN (313) 91
+TEXTWRITE (314) 111
+ADD (315) 19 20 21 26 34
+SUB (316) 27
+GT (317) 36 41 46 54
+LT (318) 37 42 47 55
+GE (319) 38 43 48 56
+LE (320) 39 44 49 57
+EQ (321) 40 45 50 58
+ASSIGN (322) 14 15
+MOD (323) 30
+MUL (324) 29
+DIV (325) 28
+
+
+Nonterminals, with rules where they appear
+
+$accept (71)
+    on left: 0
+statement (72)
+    on left: 1 2 3 4 5 6 7 8 9 10 11, on right: 0 2 3 4 5 6 7 8 9 10
+    11 156 157 163 164
+flag_mark (73)
+    on left: 12, on right: 10
+flag (74)
+    on left: 13, on right: 83 108
+calculation (75)
+    on left: 14 15, on right: 4 147 161
+calculate_value (76)
+    on left: 16 17 18, on right: 14
+calculate_number (77)
+    on left: 19 20 21, on right: 16
+number_var (78)
+    on left: 22 23, on right: 62 63 65 66 68 69 71 72 75 76 77 78 80
+    81 82 83 95 98 99 100 101 102 103 104 105 109 110 111 115 116
+number (79)
+    on left: 24 25 26 27 28 29 30, on right: 19 20 23 25 26 27 28 29
+    30 36 37 38 39 40 41 42 43 44 45 54 55 56 57 58 138
+string_var (80)
+    on left: 31 32, on right: 62 63 64 65 66 67 74 75 76 77 78 79 80
+    81 82 83 86 87 89 90 102 103 104 109 111 112 113 117 118
+string (81)
+    on left: 33 34, on right: 17 32 34 139
+boolean_var (82)
+    on left: 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51, on right:
+    155 162
+boolean (83)
+    on left: 52 53 54 55 56 57 58, on right: 18 51 53 75 77
+color (84)
+    on left: 59, on right: 68 69 70 111
+place (85)
+    on left: 60 61, on right: 62 63 64 71 72 73 75 76 77 78 80 81 82
+    83 85 93 94 95 96 98 103 104 111
+command (86)
+    on left: 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100
+    101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116,
+    on right: 7 150
+select_args (87)
+    on left: 117 118, on right: 85 118
+function (88)
+    on left: 119 120, on right: 8
+function_name_check (89)
+    on left: 121, on right: 119 120
+function_name (90)
+    on left: 122, on right: 123 124
+use_function (91)
+    on left: 123 124, on right: 9 152
+args_push (92)
+    on left: 125 126 127 128 129 130 131 132 133 134 135 136, on right:
+    123 125 126 127 128 129 130
+args_var (93)
+    on left: 137, on right: 127 130 133 136
+args_number (94)
+    on left: 138, on right: 125 128 131 134
+args_str (95)
+    on left: 139, on right: 126 129 132 135
+args (96)
+    on left: 140 141, on right: 119 140
+function_contents (97)
+    on left: 142 143, on right: 119 120
+function_start (98)
+    on left: 144, on right: 142 143
+function_end (99)
+    on left: 145, on right: 142 143
+function_statement (100)
+    on left: 146 147 148 149 150 151 152 153, on right: 142 143 147
+    148 149 150 151 152 153
+if_state (101)
+    on left: 154, on right: 3 148
+if_boolean_var (102)
+    on left: 155, on right: 154
+if_contents (103)
+    on left: 156 157, on right: 154
+if_starts (104)
+    on left: 158, on right: 156 157
+if_end (105)
+    on left: 159, on right: 156 157
+for_state (106)
+    on left: 160, on right: 5
+for_calc (107)
+    on left: 161, on right: 160
+for_boolean (108)
+    on left: 162, on right: 160
+for_contents (109)
+    on left: 163 164, on right: 160
+for_starts (110)
+    on left: 165, on right: 163 164
+for_end (111)
+    on left: 166, on right: 163 164
+conversation (112)
+    on left: 167 168, on right: 6 149
+name (113)
+    on left: 169, on right: 168
+
+
+State 0
+
+    0 $accept: . statement $end
+
+    $default  reduce using rule 1 (statement)
+
+    statement  go to state 1
+
+
+State 1
+
+    0 $accept: statement . $end
+    2 statement: statement . COMMENT FIN
+    3          | statement . if_state FIN
+    4          | statement . calculation FIN
+    5          | statement . for_state FIN
+    6          | statement . conversation FIN
+    7          | statement . command FIN
+    8          | statement . function FIN
+    9          | statement . use_function FIN
+   10          | statement . flag_mark FIN
+   11          | statement . FIN
+
+    $end             shift, and go to state 2
+    FLAGS            shift, and go to state 3
+    VARIABLE         shift, and go to state 4
+    COMMENT          shift, and go to state 5
+    FIN              shift, and go to state 6
+    IF               shift, and go to state 7
+    FOR              shift, and go to state 8
+    CONVERSATION     shift, and go to state 9
+    DEF              shift, and go to state 10
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    flag_mark      go to state 49
+    calculation    go to state 50
+    command        go to state 51
+    function       go to state 52
+    function_name  go to state 53
+    use_function   go to state 54
+    if_state       go to state 55
+    for_state      go to state 56
+    conversation   go to state 57
+    name           go to state 58
+
+
+State 2
+
+    0 $accept: statement $end .
+
+    $default  accept
+
+
+State 3
+
+   12 flag_mark: FLAGS .
+
+    $default  reduce using rule 12 (flag_mark)
+
+
+State 4
+
+   14 calculation: VARIABLE . ASSIGN calculate_value
+   15            | VARIABLE . ASSIGN VARIABLE
+
+    ASSIGN  shift, and go to state 59
+
+
+State 5
+
+    2 statement: statement COMMENT . FIN
+
+    FIN  shift, and go to state 60
+
+
+State 6
+
+   11 statement: statement FIN .
+
+    $default  reduce using rule 11 (statement)
+
+
+State 7
+
+  154 if_state: IF . OPEN if_boolean_var CLOSE if_contents
+
+    OPEN  shift, and go to state 61
+
+
+State 8
+
+  160 for_state: FOR . OPEN for_calc COMMA for_boolean COMMA for_calc CLOSE for_contents
+
+    OPEN  shift, and go to state 62
+
+
+State 9
+
+  167 conversation: CONVERSATION .
+
+    $default  reduce using rule 167 (conversation)
+
+
+State 10
+
+  119 function: DEF . function_name_check OPEN args CLOSE function_contents
+  120         | DEF . function_name_check OPEN CLOSE function_contents
+
+    FUNCTION_NAME  shift, and go to state 63
+
+    function_name_check  go to state 64
+
+
+State 11
+
+  122 function_name: FUNCTION_NAME .
+
+    $default  reduce using rule 122 (function_name)
+
+
+State 12
+
+  169 name: NAME_BLOCK_OPEN . CONVERSATION NAME_BLOCK_CLOSE
+
+    CONVERSATION  shift, and go to state 65
+
+
+State 13
+
+   62 command: LD . place COMMA string_var COMMA number_var COMMA number_var
+   63        | LD . place COMMA string_var COMMA number_var
+   64        | LD . place COMMA string_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 68
+
+
+State 14
+
+   71 command: CL . place COMMA number_var COMMA number_var
+   72        | CL . place COMMA number_var
+   73        | CL . place
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 69
+
+
+State 15
+
+   65 command: BG . string_var COMMA number_var COMMA number_var
+   66        | BG . string_var COMMA number_var
+   67        | BG . string_var
+   68        | BG . color COMMA number_var COMMA number_var
+   69        | BG . color COMMA number_var
+   70        | BG . color
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+    COLOR     shift, and go to state 72
+
+    string_var  go to state 73
+    string      go to state 74
+    color       go to state 75
+
+
+State 16
+
+   79 command: MOVIE . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 76
+    string      go to state 74
+
+
+State 17
+
+   75 command: LSP . place COMMA string_var COMMA number_var COMMA number_var COMMA boolean
+   76        | LSP . place COMMA string_var COMMA number_var COMMA number_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 77
+
+
+State 18
+
+   77 command: LSPH . place COMMA string_var COMMA number_var COMMA number_var COMMA boolean
+   78        | LSPH . place COMMA string_var COMMA number_var COMMA number_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 78
+
+
+State 19
+
+  115 command: PRINT . number_var
+  116        | PRINT . number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 82
+    number      go to state 83
+
+
+State 20
+
+   95 command: VSP . place COMMA number_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 84
+
+
+State 21
+
+   96 command: CSP . place
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 85
+
+
+State 22
+
+   97 command: CSPN .
+
+    $default  reduce using rule 97 (command)
+
+
+State 23
+
+   98 command: MSP . place COMMA number_var COMMA number_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 86
+
+
+State 24
+
+   99 command: BGMVOL . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 87
+    number      go to state 83
+
+
+State 25
+
+  100 command: QUAKE . number_var COMMA number_var COMMA number_var
+  101        | QUAKE . number_var COMMA number_var COMMA number_var COMMA number_var
+  102        | QUAKE . number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 88
+    number      go to state 83
+
+
+State 26
+
+  109 command: FOOTERREGIST . string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 89
+    string      go to state 74
+
+
+State 27
+
+   80 command: DEFBUTTON . place COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON . place COMMA number_var COMMA number_var COMMA string_var COMMA string_var
+   82        | DEFBUTTON . place COMMA number_var COMMA number_var COMMA string_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 90
+
+
+State 28
+
+   83 command: BUTTON . place COMMA number_var COMMA number_var COMMA string_var COMMA flag
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 91
+
+
+State 29
+
+   85 command: SELECT . place COMMA select_args
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 92
+
+
+State 30
+
+   84 command: SELECTN .
+
+    $default  reduce using rule 84 (command)
+
+
+State 31
+
+   74 command: CHANGESCENE . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 93
+    string      go to state 74
+
+
+State 32
+
+  103 command: TEXTDEF . place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF . place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 94
+
+
+State 33
+
+  105 command: TEXTSPEED . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 95
+    number      go to state 83
+
+
+State 34
+
+  106 command: FOOTERON .
+
+    $default  reduce using rule 106 (command)
+
+
+State 35
+
+  107 command: FOOTEROFF .
+
+    $default  reduce using rule 107 (command)
+
+
+State 36
+
+  108 command: GOTO . flag
+
+    FLAGS  shift, and go to state 96
+
+    flag  go to state 97
+
+
+State 37
+
+  112 command: SAVE . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 98
+    string      go to state 74
+
+
+State 38
+
+  113 command: LOAD . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 99
+    string      go to state 74
+
+
+State 39
+
+   86 command: BGM . string_var COMMA string_var
+   87        | BGM . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 100
+    string      go to state 74
+
+
+State 40
+
+   88 command: BGMSTOP .
+
+    $default  reduce using rule 88 (command)
+
+
+State 41
+
+   89 command: SE . string_var COMMA string_var
+   90        | SE . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 101
+    string      go to state 74
+
+
+State 42
+
+  110 command: DELAY . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 102
+    number      go to state 83
+
+
+State 43
+
+  114 command: RELEASE .
+
+    $default  reduce using rule 114 (command)
+
+
+State 44
+
+   93 command: TEXTOFF . place
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 103
+
+
+State 45
+
+   94 command: TEXTON . place
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 104
+
+
+State 46
+
+   92 command: TEXTONN .
+
+    $default  reduce using rule 92 (command)
+
+
+State 47
+
+   91 command: TEXTOFFN .
+
+    $default  reduce using rule 91 (command)
+
+
+State 48
+
+  111 command: TEXTWRITE . place COMMA string_var COMMA number_var COMMA color COMMA string_var
+
+    VARIABLE       shift, and go to state 66
+    FUNCTION_NAME  shift, and go to state 67
+
+    place  go to state 105
+
+
+State 49
+
+   10 statement: statement flag_mark . FIN
+
+    FIN  shift, and go to state 106
+
+
+State 50
+
+    4 statement: statement calculation . FIN
+
+    FIN  shift, and go to state 107
+
+
+State 51
+
+    7 statement: statement command . FIN
+
+    FIN  shift, and go to state 108
+
+
+State 52
+
+    8 statement: statement function . FIN
+
+    FIN  shift, and go to state 109
+
+
+State 53
+
+  123 use_function: function_name . OPEN args_push CLOSE
+  124             | function_name . OPEN CLOSE
+
+    OPEN  shift, and go to state 110
+
+
+State 54
+
+    9 statement: statement use_function . FIN
+
+    FIN  shift, and go to state 111
+
+
+State 55
+
+    3 statement: statement if_state . FIN
+
+    FIN  shift, and go to state 112
+
+
+State 56
+
+    5 statement: statement for_state . FIN
+
+    FIN  shift, and go to state 113
+
+
+State 57
+
+    6 statement: statement conversation . FIN
+
+    FIN  shift, and go to state 114
+
+
+State 58
+
+  168 conversation: name . CONVERSATION
+
+    CONVERSATION  shift, and go to state 115
+
+
+State 59
+
+   14 calculation: VARIABLE ASSIGN . calculate_value
+   15            | VARIABLE ASSIGN . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    BOOLEAN   shift, and go to state 116
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 117
+    OPEN      shift, and go to state 118
+
+    calculate_value   go to state 119
+    calculate_number  go to state 120
+    number            go to state 121
+    string            go to state 122
+    boolean           go to state 123
+
+
+State 60
+
+    2 statement: statement COMMENT FIN .
+
+    $default  reduce using rule 2 (statement)
+
+
+State 61
+
+  154 if_state: IF OPEN . if_boolean_var CLOSE if_contents
+
+    NUMBER    shift, and go to state 79
+    BOOLEAN   shift, and go to state 116
+    VARIABLE  shift, and go to state 124
+    OPEN      shift, and go to state 118
+
+    number          go to state 125
+    boolean_var     go to state 126
+    boolean         go to state 127
+    if_boolean_var  go to state 128
+
+
+State 62
+
+  160 for_state: FOR OPEN . for_calc COMMA for_boolean COMMA for_calc CLOSE for_contents
+
+    VARIABLE  shift, and go to state 4
+
+    calculation  go to state 129
+    for_calc     go to state 130
+
+
+State 63
+
+  121 function_name_check: FUNCTION_NAME .
+
+    $default  reduce using rule 121 (function_name_check)
+
+
+State 64
+
+  119 function: DEF function_name_check . OPEN args CLOSE function_contents
+  120         | DEF function_name_check . OPEN CLOSE function_contents
+
+    OPEN  shift, and go to state 131
+
+
+State 65
+
+  169 name: NAME_BLOCK_OPEN CONVERSATION . NAME_BLOCK_CLOSE
+
+    NAME_BLOCK_CLOSE  shift, and go to state 132
+
+
+State 66
+
+   60 place: VARIABLE .
+
+    $default  reduce using rule 60 (place)
+
+
+State 67
+
+   61 place: FUNCTION_NAME .
+
+    $default  reduce using rule 61 (place)
+
+
+State 68
+
+   62 command: LD place . COMMA string_var COMMA number_var COMMA number_var
+   63        | LD place . COMMA string_var COMMA number_var
+   64        | LD place . COMMA string_var
+
+    COMMA  shift, and go to state 133
+
+
+State 69
+
+   71 command: CL place . COMMA number_var COMMA number_var
+   72        | CL place . COMMA number_var
+   73        | CL place .
+
+    COMMA  shift, and go to state 134
+
+    $default  reduce using rule 73 (command)
+
+
+State 70
+
+   33 string: STRING .
+
+    $default  reduce using rule 33 (string)
+
+
+State 71
+
+   31 string_var: VARIABLE .
+
+    $default  reduce using rule 31 (string_var)
+
+
+State 72
+
+   59 color: COLOR .
+
+    $default  reduce using rule 59 (color)
+
+
+State 73
+
+   65 command: BG string_var . COMMA number_var COMMA number_var
+   66        | BG string_var . COMMA number_var
+   67        | BG string_var .
+
+    COMMA  shift, and go to state 135
+
+    $default  reduce using rule 67 (command)
+
+
+State 74
+
+   32 string_var: string .
+   34 string: string . ADD string
+
+    ADD  shift, and go to state 136
+
+    $default  reduce using rule 32 (string_var)
+
+
+State 75
+
+   68 command: BG color . COMMA number_var COMMA number_var
+   69        | BG color . COMMA number_var
+   70        | BG color .
+
+    COMMA  shift, and go to state 137
+
+    $default  reduce using rule 70 (command)
+
+
+State 76
+
+   79 command: MOVIE string_var .
+
+    $default  reduce using rule 79 (command)
+
+
+State 77
+
+   75 command: LSP place . COMMA string_var COMMA number_var COMMA number_var COMMA boolean
+   76        | LSP place . COMMA string_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 138
+
+
+State 78
+
+   77 command: LSPH place . COMMA string_var COMMA number_var COMMA number_var COMMA boolean
+   78        | LSPH place . COMMA string_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 139
+
+
+State 79
+
+   24 number: NUMBER .
+
+    $default  reduce using rule 24 (number)
+
+
+State 80
+
+   22 number_var: VARIABLE .
+
+    $default  reduce using rule 22 (number_var)
+
+
+State 81
+
+   25 number: OPEN . number CLOSE
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 140
+
+
+State 82
+
+  115 command: PRINT number_var .
+  116        | PRINT number_var . COMMA number_var
+
+    COMMA  shift, and go to state 141
+
+    $default  reduce using rule 115 (command)
+
+
+State 83
+
+   23 number_var: number .
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 23 (number_var)
+
+
+State 84
+
+   95 command: VSP place . COMMA number_var
+
+    COMMA  shift, and go to state 147
+
+
+State 85
+
+   96 command: CSP place .
+
+    $default  reduce using rule 96 (command)
+
+
+State 86
+
+   98 command: MSP place . COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 148
+
+
+State 87
+
+   99 command: BGMVOL number_var .
+
+    $default  reduce using rule 99 (command)
+
+
+State 88
+
+  100 command: QUAKE number_var . COMMA number_var COMMA number_var
+  101        | QUAKE number_var . COMMA number_var COMMA number_var COMMA number_var
+  102        | QUAKE number_var . COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+
+    COMMA  shift, and go to state 149
+
+
+State 89
+
+  109 command: FOOTERREGIST string_var . COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 150
+
+
+State 90
+
+   80 command: DEFBUTTON place . COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place . COMMA number_var COMMA number_var COMMA string_var COMMA string_var
+   82        | DEFBUTTON place . COMMA number_var COMMA number_var COMMA string_var
+
+    COMMA  shift, and go to state 151
+
+
+State 91
+
+   83 command: BUTTON place . COMMA number_var COMMA number_var COMMA string_var COMMA flag
+
+    COMMA  shift, and go to state 152
+
+
+State 92
+
+   85 command: SELECT place . COMMA select_args
+
+    COMMA  shift, and go to state 153
+
+
+State 93
+
+   74 command: CHANGESCENE string_var .
+
+    $default  reduce using rule 74 (command)
+
+
+State 94
+
+  103 command: TEXTDEF place . COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place . COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 154
+
+
+State 95
+
+  105 command: TEXTSPEED number_var .
+
+    $default  reduce using rule 105 (command)
+
+
+State 96
+
+   13 flag: FLAGS .
+
+    $default  reduce using rule 13 (flag)
+
+
+State 97
+
+  108 command: GOTO flag .
+
+    $default  reduce using rule 108 (command)
+
+
+State 98
+
+  112 command: SAVE string_var .
+
+    $default  reduce using rule 112 (command)
+
+
+State 99
+
+  113 command: LOAD string_var .
+
+    $default  reduce using rule 113 (command)
+
+
+State 100
+
+   86 command: BGM string_var . COMMA string_var
+   87        | BGM string_var .
+
+    COMMA  shift, and go to state 155
+
+    $default  reduce using rule 87 (command)
+
+
+State 101
+
+   89 command: SE string_var . COMMA string_var
+   90        | SE string_var .
+
+    COMMA  shift, and go to state 156
+
+    $default  reduce using rule 90 (command)
+
+
+State 102
+
+  110 command: DELAY number_var .
+
+    $default  reduce using rule 110 (command)
+
+
+State 103
+
+   93 command: TEXTOFF place .
+
+    $default  reduce using rule 93 (command)
+
+
+State 104
+
+   94 command: TEXTON place .
+
+    $default  reduce using rule 94 (command)
+
+
+State 105
+
+  111 command: TEXTWRITE place . COMMA string_var COMMA number_var COMMA color COMMA string_var
+
+    COMMA  shift, and go to state 157
+
+
+State 106
+
+   10 statement: statement flag_mark FIN .
+
+    $default  reduce using rule 10 (statement)
+
+
+State 107
+
+    4 statement: statement calculation FIN .
+
+    $default  reduce using rule 4 (statement)
+
+
+State 108
+
+    7 statement: statement command FIN .
+
+    $default  reduce using rule 7 (statement)
+
+
+State 109
+
+    8 statement: statement function FIN .
+
+    $default  reduce using rule 8 (statement)
+
+
+State 110
+
+  123 use_function: function_name OPEN . args_push CLOSE
+  124             | function_name OPEN . CLOSE
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    CLOSE     shift, and go to state 159
+    COMMA     shift, and go to state 160
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 163
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 111
+
+    9 statement: statement use_function FIN .
+
+    $default  reduce using rule 9 (statement)
+
+
+State 112
+
+    3 statement: statement if_state FIN .
+
+    $default  reduce using rule 3 (statement)
+
+
+State 113
+
+    5 statement: statement for_state FIN .
+
+    $default  reduce using rule 5 (statement)
+
+
+State 114
+
+    6 statement: statement conversation FIN .
+
+    $default  reduce using rule 6 (statement)
+
+
+State 115
+
+  168 conversation: name CONVERSATION .
+
+    $default  reduce using rule 168 (conversation)
+
+
+State 116
+
+   52 boolean: BOOLEAN .
+
+    $default  reduce using rule 52 (boolean)
+
+
+State 117
+
+   15 calculation: VARIABLE ASSIGN VARIABLE .
+   19 calculate_number: VARIABLE . ADD number
+   21                 | VARIABLE . ADD VARIABLE
+
+    ADD  shift, and go to state 167
+
+    $default  reduce using rule 15 (calculation)
+
+
+State 118
+
+   25 number: OPEN . number CLOSE
+   53 boolean: OPEN . boolean CLOSE
+
+    NUMBER   shift, and go to state 79
+    BOOLEAN  shift, and go to state 116
+    OPEN     shift, and go to state 118
+
+    number   go to state 168
+    boolean  go to state 169
+
+
+State 119
+
+   14 calculation: VARIABLE ASSIGN calculate_value .
+
+    $default  reduce using rule 14 (calculation)
+
+
+State 120
+
+   16 calculate_value: calculate_number .
+
+    $default  reduce using rule 16 (calculate_value)
+
+
+State 121
+
+   20 calculate_number: number . ADD VARIABLE
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   54 boolean: number . GT number
+   55        | number . LT number
+   56        | number . GE number
+   57        | number . LE number
+   58        | number . EQ number
+
+    ADD  shift, and go to state 170
+    SUB  shift, and go to state 143
+    GT   shift, and go to state 171
+    LT   shift, and go to state 172
+    GE   shift, and go to state 173
+    LE   shift, and go to state 174
+    EQ   shift, and go to state 175
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+
+State 122
+
+   17 calculate_value: string .
+   34 string: string . ADD string
+
+    ADD  shift, and go to state 136
+
+    $default  reduce using rule 17 (calculate_value)
+
+
+State 123
+
+   18 calculate_value: boolean .
+
+    $default  reduce using rule 18 (calculate_value)
+
+
+State 124
+
+   35 boolean_var: VARIABLE .
+   41            | VARIABLE . GT number
+   42            | VARIABLE . LT number
+   43            | VARIABLE . GE number
+   44            | VARIABLE . LE number
+   45            | VARIABLE . EQ number
+   46            | VARIABLE . GT VARIABLE
+   47            | VARIABLE . LT VARIABLE
+   48            | VARIABLE . GE VARIABLE
+   49            | VARIABLE . LE VARIABLE
+   50            | VARIABLE . EQ VARIABLE
+
+    GT  shift, and go to state 176
+    LT  shift, and go to state 177
+    GE  shift, and go to state 178
+    LE  shift, and go to state 179
+    EQ  shift, and go to state 180
+
+    $default  reduce using rule 35 (boolean_var)
+
+
+State 125
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   36 boolean_var: number . GT VARIABLE
+   37            | number . LT VARIABLE
+   38            | number . GE VARIABLE
+   39            | number . LE VARIABLE
+   40            | number . EQ VARIABLE
+   54 boolean: number . GT number
+   55        | number . LT number
+   56        | number . GE number
+   57        | number . LE number
+   58        | number . EQ number
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    GT   shift, and go to state 181
+    LT   shift, and go to state 182
+    GE   shift, and go to state 183
+    LE   shift, and go to state 184
+    EQ   shift, and go to state 185
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+
+State 126
+
+  155 if_boolean_var: boolean_var .
+
+    $default  reduce using rule 155 (if_boolean_var)
+
+
+State 127
+
+   51 boolean_var: boolean .
+
+    $default  reduce using rule 51 (boolean_var)
+
+
+State 128
+
+  154 if_state: IF OPEN if_boolean_var . CLOSE if_contents
+
+    CLOSE  shift, and go to state 186
+
+
+State 129
+
+  161 for_calc: calculation .
+
+    $default  reduce using rule 161 (for_calc)
+
+
+State 130
+
+  160 for_state: FOR OPEN for_calc . COMMA for_boolean COMMA for_calc CLOSE for_contents
+
+    COMMA  shift, and go to state 187
+
+
+State 131
+
+  119 function: DEF function_name_check OPEN . args CLOSE function_contents
+  120         | DEF function_name_check OPEN . CLOSE function_contents
+
+    VARIABLE  shift, and go to state 188
+    CLOSE     shift, and go to state 189
+
+    args  go to state 190
+
+
+State 132
+
+  169 name: NAME_BLOCK_OPEN CONVERSATION NAME_BLOCK_CLOSE .
+
+    $default  reduce using rule 169 (name)
+
+
+State 133
+
+   62 command: LD place COMMA . string_var COMMA number_var COMMA number_var
+   63        | LD place COMMA . string_var COMMA number_var
+   64        | LD place COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 191
+    string      go to state 74
+
+
+State 134
+
+   71 command: CL place COMMA . number_var COMMA number_var
+   72        | CL place COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 192
+    number      go to state 83
+
+
+State 135
+
+   65 command: BG string_var COMMA . number_var COMMA number_var
+   66        | BG string_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 193
+    number      go to state 83
+
+
+State 136
+
+   34 string: string ADD . string
+
+    STRING  shift, and go to state 70
+
+    string  go to state 194
+
+
+State 137
+
+   68 command: BG color COMMA . number_var COMMA number_var
+   69        | BG color COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 195
+    number      go to state 83
+
+
+State 138
+
+   75 command: LSP place COMMA . string_var COMMA number_var COMMA number_var COMMA boolean
+   76        | LSP place COMMA . string_var COMMA number_var COMMA number_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 196
+    string      go to state 74
+
+
+State 139
+
+   77 command: LSPH place COMMA . string_var COMMA number_var COMMA number_var COMMA boolean
+   78        | LSPH place COMMA . string_var COMMA number_var COMMA number_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 197
+    string      go to state 74
+
+
+State 140
+
+   25 number: OPEN number . CLOSE
+   26       | number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+
+    CLOSE  shift, and go to state 198
+    ADD    shift, and go to state 142
+    SUB    shift, and go to state 143
+    MOD    shift, and go to state 144
+    MUL    shift, and go to state 145
+    DIV    shift, and go to state 146
+
+
+State 141
+
+  116 command: PRINT number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 199
+    number      go to state 83
+
+
+State 142
+
+   26 number: number ADD . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 200
+
+
+State 143
+
+   27 number: number SUB . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 201
+
+
+State 144
+
+   30 number: number MOD . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 202
+
+
+State 145
+
+   29 number: number MUL . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 203
+
+
+State 146
+
+   28 number: number DIV . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 204
+
+
+State 147
+
+   95 command: VSP place COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 205
+    number      go to state 83
+
+
+State 148
+
+   98 command: MSP place COMMA . number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 206
+    number      go to state 83
+
+
+State 149
+
+  100 command: QUAKE number_var COMMA . number_var COMMA number_var
+  101        | QUAKE number_var COMMA . number_var COMMA number_var COMMA number_var
+  102        | QUAKE number_var COMMA . number_var COMMA number_var COMMA number_var COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 207
+    number      go to state 83
+
+
+State 150
+
+  109 command: FOOTERREGIST string_var COMMA . string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 208
+    string      go to state 74
+
+
+State 151
+
+   80 command: DEFBUTTON place COMMA . number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA . number_var COMMA number_var COMMA string_var COMMA string_var
+   82        | DEFBUTTON place COMMA . number_var COMMA number_var COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 209
+    number      go to state 83
+
+
+State 152
+
+   83 command: BUTTON place COMMA . number_var COMMA number_var COMMA string_var COMMA flag
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 210
+    number      go to state 83
+
+
+State 153
+
+   85 command: SELECT place COMMA . select_args
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var   go to state 211
+    string       go to state 74
+    select_args  go to state 212
+
+
+State 154
+
+  103 command: TEXTDEF place COMMA . string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA . string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 213
+    string      go to state 74
+
+
+State 155
+
+   86 command: BGM string_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 214
+    string      go to state 74
+
+
+State 156
+
+   89 command: SE string_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 215
+    string      go to state 74
+
+
+State 157
+
+  111 command: TEXTWRITE place COMMA . string_var COMMA number_var COMMA color COMMA string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 216
+    string      go to state 74
+
+
+State 158
+
+  137 args_var: VARIABLE .
+
+    $default  reduce using rule 137 (args_var)
+
+
+State 159
+
+  124 use_function: function_name OPEN CLOSE .
+
+    $default  reduce using rule 124 (use_function)
+
+
+State 160
+
+  125 args_push: COMMA . args_number args_push
+  126          | COMMA . args_str args_push
+  127          | COMMA . args_var args_push
+  134          | COMMA . args_number
+  135          | COMMA . args_str
+  136          | COMMA . args_var
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+
+    number       go to state 161
+    string       go to state 162
+    args_var     go to state 217
+    args_number  go to state 218
+    args_str     go to state 219
+
+
+State 161
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+  138 args_number: number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 138 (args_number)
+
+
+State 162
+
+   34 string: string . ADD string
+  139 args_str: string .
+
+    ADD  shift, and go to state 136
+
+    $default  reduce using rule 139 (args_str)
+
+
+State 163
+
+  123 use_function: function_name OPEN args_push . CLOSE
+
+    CLOSE  shift, and go to state 220
+
+
+State 164
+
+  130 args_push: args_var . args_push
+  133          | args_var .
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    COMMA     shift, and go to state 160
+
+    $default  reduce using rule 133 (args_push)
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 221
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 165
+
+  128 args_push: args_number . args_push
+  131          | args_number .
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    COMMA     shift, and go to state 160
+
+    $default  reduce using rule 131 (args_push)
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 222
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 166
+
+  129 args_push: args_str . args_push
+  132          | args_str .
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    COMMA     shift, and go to state 160
+
+    $default  reduce using rule 132 (args_push)
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 223
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 167
+
+   19 calculate_number: VARIABLE ADD . number
+   21                 | VARIABLE ADD . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 224
+    OPEN      shift, and go to state 81
+
+    number  go to state 225
+
+
+State 168
+
+   25 number: OPEN number . CLOSE
+   26       | number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   54 boolean: number . GT number
+   55        | number . LT number
+   56        | number . GE number
+   57        | number . LE number
+   58        | number . EQ number
+
+    CLOSE  shift, and go to state 198
+    ADD    shift, and go to state 142
+    SUB    shift, and go to state 143
+    GT     shift, and go to state 171
+    LT     shift, and go to state 172
+    GE     shift, and go to state 173
+    LE     shift, and go to state 174
+    EQ     shift, and go to state 175
+    MOD    shift, and go to state 144
+    MUL    shift, and go to state 145
+    DIV    shift, and go to state 146
+
+
+State 169
+
+   53 boolean: OPEN boolean . CLOSE
+
+    CLOSE  shift, and go to state 226
+
+
+State 170
+
+   20 calculate_number: number ADD . VARIABLE
+   26 number: number ADD . number
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 227
+    OPEN      shift, and go to state 81
+
+    number  go to state 200
+
+
+State 171
+
+   54 boolean: number GT . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 228
+
+
+State 172
+
+   55 boolean: number LT . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 229
+
+
+State 173
+
+   56 boolean: number GE . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 230
+
+
+State 174
+
+   57 boolean: number LE . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 231
+
+
+State 175
+
+   58 boolean: number EQ . number
+
+    NUMBER  shift, and go to state 79
+    OPEN    shift, and go to state 81
+
+    number  go to state 232
+
+
+State 176
+
+   41 boolean_var: VARIABLE GT . number
+   46            | VARIABLE GT . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 233
+    OPEN      shift, and go to state 81
+
+    number  go to state 234
+
+
+State 177
+
+   42 boolean_var: VARIABLE LT . number
+   47            | VARIABLE LT . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 235
+    OPEN      shift, and go to state 81
+
+    number  go to state 236
+
+
+State 178
+
+   43 boolean_var: VARIABLE GE . number
+   48            | VARIABLE GE . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 237
+    OPEN      shift, and go to state 81
+
+    number  go to state 238
+
+
+State 179
+
+   44 boolean_var: VARIABLE LE . number
+   49            | VARIABLE LE . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 239
+    OPEN      shift, and go to state 81
+
+    number  go to state 240
+
+
+State 180
+
+   45 boolean_var: VARIABLE EQ . number
+   50            | VARIABLE EQ . VARIABLE
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 241
+    OPEN      shift, and go to state 81
+
+    number  go to state 242
+
+
+State 181
+
+   36 boolean_var: number GT . VARIABLE
+   54 boolean: number GT . number
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 243
+    OPEN      shift, and go to state 81
+
+    number  go to state 228
+
+
+State 182
+
+   37 boolean_var: number LT . VARIABLE
+   55 boolean: number LT . number
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 244
+    OPEN      shift, and go to state 81
+
+    number  go to state 229
+
+
+State 183
+
+   38 boolean_var: number GE . VARIABLE
+   56 boolean: number GE . number
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 245
+    OPEN      shift, and go to state 81
+
+    number  go to state 230
+
+
+State 184
+
+   39 boolean_var: number LE . VARIABLE
+   57 boolean: number LE . number
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 246
+    OPEN      shift, and go to state 81
+
+    number  go to state 231
+
+
+State 185
+
+   40 boolean_var: number EQ . VARIABLE
+   58 boolean: number EQ . number
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 247
+    OPEN      shift, and go to state 81
+
+    number  go to state 232
+
+
+State 186
+
+  154 if_state: IF OPEN if_boolean_var CLOSE . if_contents
+
+    BLOCK_OPEN  shift, and go to state 248
+    FIN         shift, and go to state 249
+
+    if_contents  go to state 250
+    if_starts    go to state 251
+
+
+State 187
+
+  160 for_state: FOR OPEN for_calc COMMA . for_boolean COMMA for_calc CLOSE for_contents
+
+    NUMBER    shift, and go to state 79
+    BOOLEAN   shift, and go to state 116
+    VARIABLE  shift, and go to state 124
+    OPEN      shift, and go to state 118
+
+    number       go to state 125
+    boolean_var  go to state 252
+    boolean      go to state 127
+    for_boolean  go to state 253
+
+
+State 188
+
+  140 args: VARIABLE . COMMA args
+  141     | VARIABLE .
+
+    COMMA  shift, and go to state 254
+
+    $default  reduce using rule 141 (args)
+
+
+State 189
+
+  120 function: DEF function_name_check OPEN CLOSE . function_contents
+
+    BLOCK_OPEN  shift, and go to state 255
+    FIN         shift, and go to state 256
+
+    function_contents  go to state 257
+    function_start     go to state 258
+
+
+State 190
+
+  119 function: DEF function_name_check OPEN args . CLOSE function_contents
+
+    CLOSE  shift, and go to state 259
+
+
+State 191
+
+   62 command: LD place COMMA string_var . COMMA number_var COMMA number_var
+   63        | LD place COMMA string_var . COMMA number_var
+   64        | LD place COMMA string_var .
+
+    COMMA  shift, and go to state 260
+
+    $default  reduce using rule 64 (command)
+
+
+State 192
+
+   71 command: CL place COMMA number_var . COMMA number_var
+   72        | CL place COMMA number_var .
+
+    COMMA  shift, and go to state 261
+
+    $default  reduce using rule 72 (command)
+
+
+State 193
+
+   65 command: BG string_var COMMA number_var . COMMA number_var
+   66        | BG string_var COMMA number_var .
+
+    COMMA  shift, and go to state 262
+
+    $default  reduce using rule 66 (command)
+
+
+State 194
+
+   34 string: string . ADD string
+   34       | string ADD string .
+
+    $default  reduce using rule 34 (string)
+
+
+State 195
+
+   68 command: BG color COMMA number_var . COMMA number_var
+   69        | BG color COMMA number_var .
+
+    COMMA  shift, and go to state 263
+
+    $default  reduce using rule 69 (command)
+
+
+State 196
+
+   75 command: LSP place COMMA string_var . COMMA number_var COMMA number_var COMMA boolean
+   76        | LSP place COMMA string_var . COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 264
+
+
+State 197
+
+   77 command: LSPH place COMMA string_var . COMMA number_var COMMA number_var COMMA boolean
+   78        | LSPH place COMMA string_var . COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 265
+
+
+State 198
+
+   25 number: OPEN number CLOSE .
+
+    $default  reduce using rule 25 (number)
+
+
+State 199
+
+  116 command: PRINT number_var COMMA number_var .
+
+    $default  reduce using rule 116 (command)
+
+
+State 200
+
+   26 number: number . ADD number
+   26       | number ADD number .
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 26 (number)
+
+
+State 201
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   27       | number SUB number .
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 27 (number)
+
+
+State 202
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   30       | number MOD number .
+
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 30 (number)
+
+
+State 203
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   29       | number MUL number .
+   30       | number . MOD number
+
+    $default  reduce using rule 29 (number)
+
+
+State 204
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   28       | number DIV number .
+   29       | number . MUL number
+   30       | number . MOD number
+
+    $default  reduce using rule 28 (number)
+
+
+State 205
+
+   95 command: VSP place COMMA number_var .
+
+    $default  reduce using rule 95 (command)
+
+
+State 206
+
+   98 command: MSP place COMMA number_var . COMMA number_var
+
+    COMMA  shift, and go to state 266
+
+
+State 207
+
+  100 command: QUAKE number_var COMMA number_var . COMMA number_var
+  101        | QUAKE number_var COMMA number_var . COMMA number_var COMMA number_var
+  102        | QUAKE number_var COMMA number_var . COMMA number_var COMMA number_var COMMA string_var
+
+    COMMA  shift, and go to state 267
+
+
+State 208
+
+  109 command: FOOTERREGIST string_var COMMA string_var . COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 268
+
+
+State 209
+
+   80 command: DEFBUTTON place COMMA number_var . COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var . COMMA number_var COMMA string_var COMMA string_var
+   82        | DEFBUTTON place COMMA number_var . COMMA number_var COMMA string_var
+
+    COMMA  shift, and go to state 269
+
+
+State 210
+
+   83 command: BUTTON place COMMA number_var . COMMA number_var COMMA string_var COMMA flag
+
+    COMMA  shift, and go to state 270
+
+
+State 211
+
+  117 select_args: string_var .
+  118            | string_var . COMMA select_args
+
+    COMMA  shift, and go to state 271
+
+    $default  reduce using rule 117 (select_args)
+
+
+State 212
+
+   85 command: SELECT place COMMA select_args .
+
+    $default  reduce using rule 85 (command)
+
+
+State 213
+
+  103 command: TEXTDEF place COMMA string_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 272
+
+
+State 214
+
+   86 command: BGM string_var COMMA string_var .
+
+    $default  reduce using rule 86 (command)
+
+
+State 215
+
+   89 command: SE string_var COMMA string_var .
+
+    $default  reduce using rule 89 (command)
+
+
+State 216
+
+  111 command: TEXTWRITE place COMMA string_var . COMMA number_var COMMA color COMMA string_var
+
+    COMMA  shift, and go to state 273
+
+
+State 217
+
+  127 args_push: COMMA args_var . args_push
+  136          | COMMA args_var .
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    COMMA     shift, and go to state 160
+
+    $default  reduce using rule 136 (args_push)
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 274
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 218
+
+  125 args_push: COMMA args_number . args_push
+  134          | COMMA args_number .
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    COMMA     shift, and go to state 160
+
+    $default  reduce using rule 134 (args_push)
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 275
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 219
+
+  126 args_push: COMMA args_str . args_push
+  135          | COMMA args_str .
+
+    NUMBER    shift, and go to state 79
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 158
+    OPEN      shift, and go to state 81
+    COMMA     shift, and go to state 160
+
+    $default  reduce using rule 135 (args_push)
+
+    number       go to state 161
+    string       go to state 162
+    args_push    go to state 276
+    args_var     go to state 164
+    args_number  go to state 165
+    args_str     go to state 166
+
+
+State 220
+
+  123 use_function: function_name OPEN args_push CLOSE .
+
+    $default  reduce using rule 123 (use_function)
+
+
+State 221
+
+  130 args_push: args_var args_push .
+
+    $default  reduce using rule 130 (args_push)
+
+
+State 222
+
+  128 args_push: args_number args_push .
+
+    $default  reduce using rule 128 (args_push)
+
+
+State 223
+
+  129 args_push: args_str args_push .
+
+    $default  reduce using rule 129 (args_push)
+
+
+State 224
+
+   21 calculate_number: VARIABLE ADD VARIABLE .
+
+    $default  reduce using rule 21 (calculate_number)
+
+
+State 225
+
+   19 calculate_number: VARIABLE ADD number .
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 19 (calculate_number)
+
+
+State 226
+
+   53 boolean: OPEN boolean CLOSE .
+
+    $default  reduce using rule 53 (boolean)
+
+
+State 227
+
+   20 calculate_number: number ADD VARIABLE .
+
+    $default  reduce using rule 20 (calculate_number)
+
+
+State 228
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   54 boolean: number GT number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 54 (boolean)
+
+
+State 229
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   55 boolean: number LT number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 55 (boolean)
+
+
+State 230
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   56 boolean: number GE number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 56 (boolean)
+
+
+State 231
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   57 boolean: number LE number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 57 (boolean)
+
+
+State 232
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   58 boolean: number EQ number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 58 (boolean)
+
+
+State 233
+
+   46 boolean_var: VARIABLE GT VARIABLE .
+
+    $default  reduce using rule 46 (boolean_var)
+
+
+State 234
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   41 boolean_var: VARIABLE GT number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 41 (boolean_var)
+
+
+State 235
+
+   47 boolean_var: VARIABLE LT VARIABLE .
+
+    $default  reduce using rule 47 (boolean_var)
+
+
+State 236
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   42 boolean_var: VARIABLE LT number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 42 (boolean_var)
+
+
+State 237
+
+   48 boolean_var: VARIABLE GE VARIABLE .
+
+    $default  reduce using rule 48 (boolean_var)
+
+
+State 238
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   43 boolean_var: VARIABLE GE number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 43 (boolean_var)
+
+
+State 239
+
+   49 boolean_var: VARIABLE LE VARIABLE .
+
+    $default  reduce using rule 49 (boolean_var)
+
+
+State 240
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   44 boolean_var: VARIABLE LE number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 44 (boolean_var)
+
+
+State 241
+
+   50 boolean_var: VARIABLE EQ VARIABLE .
+
+    $default  reduce using rule 50 (boolean_var)
+
+
+State 242
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   45 boolean_var: VARIABLE EQ number .
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+    $default  reduce using rule 45 (boolean_var)
+
+
+State 243
+
+   36 boolean_var: number GT VARIABLE .
+
+    $default  reduce using rule 36 (boolean_var)
+
+
+State 244
+
+   37 boolean_var: number LT VARIABLE .
+
+    $default  reduce using rule 37 (boolean_var)
+
+
+State 245
+
+   38 boolean_var: number GE VARIABLE .
+
+    $default  reduce using rule 38 (boolean_var)
+
+
+State 246
+
+   39 boolean_var: number LE VARIABLE .
+
+    $default  reduce using rule 39 (boolean_var)
+
+
+State 247
+
+   40 boolean_var: number EQ VARIABLE .
+
+    $default  reduce using rule 40 (boolean_var)
+
+
+State 248
+
+  158 if_starts: BLOCK_OPEN .
+
+    $default  reduce using rule 158 (if_starts)
+
+
+State 249
+
+  157 if_contents: FIN . if_starts FIN statement if_end
+
+    BLOCK_OPEN  shift, and go to state 248
+
+    if_starts  go to state 277
+
+
+State 250
+
+  154 if_state: IF OPEN if_boolean_var CLOSE if_contents .
+
+    $default  reduce using rule 154 (if_state)
+
+
+State 251
+
+  156 if_contents: if_starts . statement if_end
+
+    $default  reduce using rule 1 (statement)
+
+    statement  go to state 278
+
+
+State 252
+
+  162 for_boolean: boolean_var .
+
+    $default  reduce using rule 162 (for_boolean)
+
+
+State 253
+
+  160 for_state: FOR OPEN for_calc COMMA for_boolean . COMMA for_calc CLOSE for_contents
+
+    COMMA  shift, and go to state 279
+
+
+State 254
+
+  140 args: VARIABLE COMMA . args
+
+    VARIABLE  shift, and go to state 188
+
+    args  go to state 280
+
+
+State 255
+
+  144 function_start: BLOCK_OPEN .
+
+    $default  reduce using rule 144 (function_start)
+
+
+State 256
+
+  143 function_contents: FIN . function_start FIN function_statement function_end
+
+    BLOCK_OPEN  shift, and go to state 255
+
+    function_start  go to state 281
+
+
+State 257
+
+  120 function: DEF function_name_check OPEN CLOSE function_contents .
+
+    $default  reduce using rule 120 (function)
+
+
+State 258
+
+  142 function_contents: function_start . function_statement function_end
+
+    $default  reduce using rule 146 (function_statement)
+
+    function_statement  go to state 282
+
+
+State 259
+
+  119 function: DEF function_name_check OPEN args CLOSE . function_contents
+
+    BLOCK_OPEN  shift, and go to state 255
+    FIN         shift, and go to state 256
+
+    function_contents  go to state 283
+    function_start     go to state 258
+
+
+State 260
+
+   62 command: LD place COMMA string_var COMMA . number_var COMMA number_var
+   63        | LD place COMMA string_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 284
+    number      go to state 83
+
+
+State 261
+
+   71 command: CL place COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 285
+    number      go to state 83
+
+
+State 262
+
+   65 command: BG string_var COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 286
+    number      go to state 83
+
+
+State 263
+
+   68 command: BG color COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 287
+    number      go to state 83
+
+
+State 264
+
+   75 command: LSP place COMMA string_var COMMA . number_var COMMA number_var COMMA boolean
+   76        | LSP place COMMA string_var COMMA . number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 288
+    number      go to state 83
+
+
+State 265
+
+   77 command: LSPH place COMMA string_var COMMA . number_var COMMA number_var COMMA boolean
+   78        | LSPH place COMMA string_var COMMA . number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 289
+    number      go to state 83
+
+
+State 266
+
+   98 command: MSP place COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 290
+    number      go to state 83
+
+
+State 267
+
+  100 command: QUAKE number_var COMMA number_var COMMA . number_var
+  101        | QUAKE number_var COMMA number_var COMMA . number_var COMMA number_var
+  102        | QUAKE number_var COMMA number_var COMMA . number_var COMMA number_var COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 291
+    number      go to state 83
+
+
+State 268
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA . number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 292
+    number      go to state 83
+
+
+State 269
+
+   80 command: DEFBUTTON place COMMA number_var COMMA . number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA . number_var COMMA string_var COMMA string_var
+   82        | DEFBUTTON place COMMA number_var COMMA . number_var COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 293
+    number      go to state 83
+
+
+State 270
+
+   83 command: BUTTON place COMMA number_var COMMA . number_var COMMA string_var COMMA flag
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 294
+    number      go to state 83
+
+
+State 271
+
+  118 select_args: string_var COMMA . select_args
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var   go to state 211
+    string       go to state 74
+    select_args  go to state 295
+
+
+State 272
+
+  103 command: TEXTDEF place COMMA string_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 296
+    number      go to state 83
+
+
+State 273
+
+  111 command: TEXTWRITE place COMMA string_var COMMA . number_var COMMA color COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 297
+    number      go to state 83
+
+
+State 274
+
+  127 args_push: COMMA args_var args_push .
+
+    $default  reduce using rule 127 (args_push)
+
+
+State 275
+
+  125 args_push: COMMA args_number args_push .
+
+    $default  reduce using rule 125 (args_push)
+
+
+State 276
+
+  126 args_push: COMMA args_str args_push .
+
+    $default  reduce using rule 126 (args_push)
+
+
+State 277
+
+  157 if_contents: FIN if_starts . FIN statement if_end
+
+    FIN  shift, and go to state 298
+
+
+State 278
+
+    2 statement: statement . COMMENT FIN
+    3          | statement . if_state FIN
+    4          | statement . calculation FIN
+    5          | statement . for_state FIN
+    6          | statement . conversation FIN
+    7          | statement . command FIN
+    8          | statement . function FIN
+    9          | statement . use_function FIN
+   10          | statement . flag_mark FIN
+   11          | statement . FIN
+  156 if_contents: if_starts statement . if_end
+
+    FLAGS            shift, and go to state 3
+    VARIABLE         shift, and go to state 4
+    BLOCK_CLOSE      shift, and go to state 299
+    COMMENT          shift, and go to state 5
+    FIN              shift, and go to state 6
+    IF               shift, and go to state 7
+    FOR              shift, and go to state 8
+    CONVERSATION     shift, and go to state 9
+    DEF              shift, and go to state 10
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    flag_mark      go to state 49
+    calculation    go to state 50
+    command        go to state 51
+    function       go to state 52
+    function_name  go to state 53
+    use_function   go to state 54
+    if_state       go to state 55
+    if_end         go to state 300
+    for_state      go to state 56
+    conversation   go to state 57
+    name           go to state 58
+
+
+State 279
+
+  160 for_state: FOR OPEN for_calc COMMA for_boolean COMMA . for_calc CLOSE for_contents
+
+    VARIABLE  shift, and go to state 4
+
+    calculation  go to state 129
+    for_calc     go to state 301
+
+
+State 280
+
+  140 args: VARIABLE COMMA args .
+
+    $default  reduce using rule 140 (args)
+
+
+State 281
+
+  143 function_contents: FIN function_start . FIN function_statement function_end
+
+    FIN  shift, and go to state 302
+
+
+State 282
+
+  142 function_contents: function_start function_statement . function_end
+  147 function_statement: function_statement . calculation FIN
+  148                   | function_statement . if_state FIN
+  149                   | function_statement . conversation FIN
+  150                   | function_statement . command FIN
+  151                   | function_statement . COMMENT FIN
+  152                   | function_statement . use_function FIN
+  153                   | function_statement . FIN
+
+    VARIABLE         shift, and go to state 4
+    BLOCK_CLOSE      shift, and go to state 303
+    COMMENT          shift, and go to state 304
+    FIN              shift, and go to state 305
+    IF               shift, and go to state 7
+    CONVERSATION     shift, and go to state 9
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    calculation    go to state 306
+    command        go to state 307
+    function_name  go to state 53
+    use_function   go to state 308
+    function_end   go to state 309
+    if_state       go to state 310
+    conversation   go to state 311
+    name           go to state 58
+
+
+State 283
+
+  119 function: DEF function_name_check OPEN args CLOSE function_contents .
+
+    $default  reduce using rule 119 (function)
+
+
+State 284
+
+   62 command: LD place COMMA string_var COMMA number_var . COMMA number_var
+   63        | LD place COMMA string_var COMMA number_var .
+
+    COMMA  shift, and go to state 312
+
+    $default  reduce using rule 63 (command)
+
+
+State 285
+
+   71 command: CL place COMMA number_var COMMA number_var .
+
+    $default  reduce using rule 71 (command)
+
+
+State 286
+
+   65 command: BG string_var COMMA number_var COMMA number_var .
+
+    $default  reduce using rule 65 (command)
+
+
+State 287
+
+   68 command: BG color COMMA number_var COMMA number_var .
+
+    $default  reduce using rule 68 (command)
+
+
+State 288
+
+   75 command: LSP place COMMA string_var COMMA number_var . COMMA number_var COMMA boolean
+   76        | LSP place COMMA string_var COMMA number_var . COMMA number_var
+
+    COMMA  shift, and go to state 313
+
+
+State 289
+
+   77 command: LSPH place COMMA string_var COMMA number_var . COMMA number_var COMMA boolean
+   78        | LSPH place COMMA string_var COMMA number_var . COMMA number_var
+
+    COMMA  shift, and go to state 314
+
+
+State 290
+
+   98 command: MSP place COMMA number_var COMMA number_var .
+
+    $default  reduce using rule 98 (command)
+
+
+State 291
+
+  100 command: QUAKE number_var COMMA number_var COMMA number_var .
+  101        | QUAKE number_var COMMA number_var COMMA number_var . COMMA number_var
+  102        | QUAKE number_var COMMA number_var COMMA number_var . COMMA number_var COMMA string_var
+
+    COMMA  shift, and go to state 315
+
+    $default  reduce using rule 100 (command)
+
+
+State 292
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var . COMMA string_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 316
+
+
+State 293
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var . COMMA string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA number_var . COMMA string_var COMMA string_var
+   82        | DEFBUTTON place COMMA number_var COMMA number_var . COMMA string_var
+
+    COMMA  shift, and go to state 317
+
+
+State 294
+
+   83 command: BUTTON place COMMA number_var COMMA number_var . COMMA string_var COMMA flag
+
+    COMMA  shift, and go to state 318
+
+
+State 295
+
+  118 select_args: string_var COMMA select_args .
+
+    $default  reduce using rule 118 (select_args)
+
+
+State 296
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 319
+
+
+State 297
+
+  111 command: TEXTWRITE place COMMA string_var COMMA number_var . COMMA color COMMA string_var
+
+    COMMA  shift, and go to state 320
+
+
+State 298
+
+  157 if_contents: FIN if_starts FIN . statement if_end
+
+    $default  reduce using rule 1 (statement)
+
+    statement  go to state 321
+
+
+State 299
+
+  159 if_end: BLOCK_CLOSE .
+
+    $default  reduce using rule 159 (if_end)
+
+
+State 300
+
+  156 if_contents: if_starts statement if_end .
+
+    $default  reduce using rule 156 (if_contents)
+
+
+State 301
+
+  160 for_state: FOR OPEN for_calc COMMA for_boolean COMMA for_calc . CLOSE for_contents
+
+    CLOSE  shift, and go to state 322
+
+
+State 302
+
+  143 function_contents: FIN function_start FIN . function_statement function_end
+
+    $default  reduce using rule 146 (function_statement)
+
+    function_statement  go to state 323
+
+
+State 303
+
+  145 function_end: BLOCK_CLOSE .
+
+    $default  reduce using rule 145 (function_end)
+
+
+State 304
+
+  151 function_statement: function_statement COMMENT . FIN
+
+    FIN  shift, and go to state 324
+
+
+State 305
+
+  153 function_statement: function_statement FIN .
+
+    $default  reduce using rule 153 (function_statement)
+
+
+State 306
+
+  147 function_statement: function_statement calculation . FIN
+
+    FIN  shift, and go to state 325
+
+
+State 307
+
+  150 function_statement: function_statement command . FIN
+
+    FIN  shift, and go to state 326
+
+
+State 308
+
+  152 function_statement: function_statement use_function . FIN
+
+    FIN  shift, and go to state 327
+
+
+State 309
+
+  142 function_contents: function_start function_statement function_end .
+
+    $default  reduce using rule 142 (function_contents)
+
+
+State 310
+
+  148 function_statement: function_statement if_state . FIN
+
+    FIN  shift, and go to state 328
+
+
+State 311
+
+  149 function_statement: function_statement conversation . FIN
+
+    FIN  shift, and go to state 329
+
+
+State 312
+
+   62 command: LD place COMMA string_var COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 330
+    number      go to state 83
+
+
+State 313
+
+   75 command: LSP place COMMA string_var COMMA number_var COMMA . number_var COMMA boolean
+   76        | LSP place COMMA string_var COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 331
+    number      go to state 83
+
+
+State 314
+
+   77 command: LSPH place COMMA string_var COMMA number_var COMMA . number_var COMMA boolean
+   78        | LSPH place COMMA string_var COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 332
+    number      go to state 83
+
+
+State 315
+
+  101 command: QUAKE number_var COMMA number_var COMMA number_var COMMA . number_var
+  102        | QUAKE number_var COMMA number_var COMMA number_var COMMA . number_var COMMA string_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 333
+    number      go to state 83
+
+
+State 316
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA . string_var COMMA number_var COMMA number_var COMMA number_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 334
+    string      go to state 74
+
+
+State 317
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA . string_var COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA number_var COMMA . string_var COMMA string_var
+   82        | DEFBUTTON place COMMA number_var COMMA number_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 335
+    string      go to state 74
+
+
+State 318
+
+   83 command: BUTTON place COMMA number_var COMMA number_var COMMA . string_var COMMA flag
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 336
+    string      go to state 74
+
+
+State 319
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 337
+    number      go to state 83
+
+
+State 320
+
+  111 command: TEXTWRITE place COMMA string_var COMMA number_var COMMA . color COMMA string_var
+
+    COLOR  shift, and go to state 72
+
+    color  go to state 338
+
+
+State 321
+
+    2 statement: statement . COMMENT FIN
+    3          | statement . if_state FIN
+    4          | statement . calculation FIN
+    5          | statement . for_state FIN
+    6          | statement . conversation FIN
+    7          | statement . command FIN
+    8          | statement . function FIN
+    9          | statement . use_function FIN
+   10          | statement . flag_mark FIN
+   11          | statement . FIN
+  157 if_contents: FIN if_starts FIN statement . if_end
+
+    FLAGS            shift, and go to state 3
+    VARIABLE         shift, and go to state 4
+    BLOCK_CLOSE      shift, and go to state 299
+    COMMENT          shift, and go to state 5
+    FIN              shift, and go to state 6
+    IF               shift, and go to state 7
+    FOR              shift, and go to state 8
+    CONVERSATION     shift, and go to state 9
+    DEF              shift, and go to state 10
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    flag_mark      go to state 49
+    calculation    go to state 50
+    command        go to state 51
+    function       go to state 52
+    function_name  go to state 53
+    use_function   go to state 54
+    if_state       go to state 55
+    if_end         go to state 339
+    for_state      go to state 56
+    conversation   go to state 57
+    name           go to state 58
+
+
+State 322
+
+  160 for_state: FOR OPEN for_calc COMMA for_boolean COMMA for_calc CLOSE . for_contents
+
+    BLOCK_OPEN  shift, and go to state 340
+    FIN         shift, and go to state 341
+
+    for_contents  go to state 342
+    for_starts    go to state 343
+
+
+State 323
+
+  143 function_contents: FIN function_start FIN function_statement . function_end
+  147 function_statement: function_statement . calculation FIN
+  148                   | function_statement . if_state FIN
+  149                   | function_statement . conversation FIN
+  150                   | function_statement . command FIN
+  151                   | function_statement . COMMENT FIN
+  152                   | function_statement . use_function FIN
+  153                   | function_statement . FIN
+
+    VARIABLE         shift, and go to state 4
+    BLOCK_CLOSE      shift, and go to state 303
+    COMMENT          shift, and go to state 304
+    FIN              shift, and go to state 305
+    IF               shift, and go to state 7
+    CONVERSATION     shift, and go to state 9
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    calculation    go to state 306
+    command        go to state 307
+    function_name  go to state 53
+    use_function   go to state 308
+    function_end   go to state 344
+    if_state       go to state 310
+    conversation   go to state 311
+    name           go to state 58
+
+
+State 324
+
+  151 function_statement: function_statement COMMENT FIN .
+
+    $default  reduce using rule 151 (function_statement)
+
+
+State 325
+
+  147 function_statement: function_statement calculation FIN .
+
+    $default  reduce using rule 147 (function_statement)
+
+
+State 326
+
+  150 function_statement: function_statement command FIN .
+
+    $default  reduce using rule 150 (function_statement)
+
+
+State 327
+
+  152 function_statement: function_statement use_function FIN .
+
+    $default  reduce using rule 152 (function_statement)
+
+
+State 328
+
+  148 function_statement: function_statement if_state FIN .
+
+    $default  reduce using rule 148 (function_statement)
+
+
+State 329
+
+  149 function_statement: function_statement conversation FIN .
+
+    $default  reduce using rule 149 (function_statement)
+
+
+State 330
+
+   62 command: LD place COMMA string_var COMMA number_var COMMA number_var .
+
+    $default  reduce using rule 62 (command)
+
+
+State 331
+
+   75 command: LSP place COMMA string_var COMMA number_var COMMA number_var . COMMA boolean
+   76        | LSP place COMMA string_var COMMA number_var COMMA number_var .
+
+    COMMA  shift, and go to state 345
+
+    $default  reduce using rule 76 (command)
+
+
+State 332
+
+   77 command: LSPH place COMMA string_var COMMA number_var COMMA number_var . COMMA boolean
+   78        | LSPH place COMMA string_var COMMA number_var COMMA number_var .
+
+    COMMA  shift, and go to state 346
+
+    $default  reduce using rule 78 (command)
+
+
+State 333
+
+  101 command: QUAKE number_var COMMA number_var COMMA number_var COMMA number_var .
+  102        | QUAKE number_var COMMA number_var COMMA number_var COMMA number_var . COMMA string_var
+
+    COMMA  shift, and go to state 347
+
+    $default  reduce using rule 101 (command)
+
+
+State 334
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var . COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 348
+
+
+State 335
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var . COMMA string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var . COMMA string_var
+   82        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var .
+
+    COMMA  shift, and go to state 349
+
+    $default  reduce using rule 82 (command)
+
+
+State 336
+
+   83 command: BUTTON place COMMA number_var COMMA number_var COMMA string_var . COMMA flag
+
+    COMMA  shift, and go to state 350
+
+
+State 337
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 351
+
+
+State 338
+
+  111 command: TEXTWRITE place COMMA string_var COMMA number_var COMMA color . COMMA string_var
+
+    COMMA  shift, and go to state 352
+
+
+State 339
+
+  157 if_contents: FIN if_starts FIN statement if_end .
+
+    $default  reduce using rule 157 (if_contents)
+
+
+State 340
+
+  165 for_starts: BLOCK_OPEN .
+
+    $default  reduce using rule 165 (for_starts)
+
+
+State 341
+
+  164 for_contents: FIN . for_starts FIN statement for_end
+
+    BLOCK_OPEN  shift, and go to state 340
+
+    for_starts  go to state 353
+
+
+State 342
+
+  160 for_state: FOR OPEN for_calc COMMA for_boolean COMMA for_calc CLOSE for_contents .
+
+    $default  reduce using rule 160 (for_state)
+
+
+State 343
+
+  163 for_contents: for_starts . statement for_end
+
+    $default  reduce using rule 1 (statement)
+
+    statement  go to state 354
+
+
+State 344
+
+  143 function_contents: FIN function_start FIN function_statement function_end .
+
+    $default  reduce using rule 143 (function_contents)
+
+
+State 345
+
+   75 command: LSP place COMMA string_var COMMA number_var COMMA number_var COMMA . boolean
+
+    NUMBER   shift, and go to state 79
+    BOOLEAN  shift, and go to state 116
+    OPEN     shift, and go to state 118
+
+    number   go to state 355
+    boolean  go to state 356
+
+
+State 346
+
+   77 command: LSPH place COMMA string_var COMMA number_var COMMA number_var COMMA . boolean
+
+    NUMBER   shift, and go to state 79
+    BOOLEAN  shift, and go to state 116
+    OPEN     shift, and go to state 118
+
+    number   go to state 355
+    boolean  go to state 357
+
+
+State 347
+
+  102 command: QUAKE number_var COMMA number_var COMMA number_var COMMA number_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 358
+    string      go to state 74
+
+
+State 348
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA . number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 359
+    number      go to state 83
+
+
+State 349
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA . string_var COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 360
+    string      go to state 74
+
+
+State 350
+
+   83 command: BUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA . flag
+
+    FLAGS  shift, and go to state 96
+
+    flag  go to state 361
+
+
+State 351
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 362
+    number      go to state 83
+
+
+State 352
+
+  111 command: TEXTWRITE place COMMA string_var COMMA number_var COMMA color COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 363
+    string      go to state 74
+
+
+State 353
+
+  164 for_contents: FIN for_starts . FIN statement for_end
+
+    FIN  shift, and go to state 364
+
+
+State 354
+
+    2 statement: statement . COMMENT FIN
+    3          | statement . if_state FIN
+    4          | statement . calculation FIN
+    5          | statement . for_state FIN
+    6          | statement . conversation FIN
+    7          | statement . command FIN
+    8          | statement . function FIN
+    9          | statement . use_function FIN
+   10          | statement . flag_mark FIN
+   11          | statement . FIN
+  163 for_contents: for_starts statement . for_end
+
+    FLAGS            shift, and go to state 3
+    VARIABLE         shift, and go to state 4
+    BLOCK_CLOSE      shift, and go to state 365
+    COMMENT          shift, and go to state 5
+    FIN              shift, and go to state 6
+    IF               shift, and go to state 7
+    FOR              shift, and go to state 8
+    CONVERSATION     shift, and go to state 9
+    DEF              shift, and go to state 10
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    flag_mark      go to state 49
+    calculation    go to state 50
+    command        go to state 51
+    function       go to state 52
+    function_name  go to state 53
+    use_function   go to state 54
+    if_state       go to state 55
+    for_state      go to state 56
+    for_end        go to state 366
+    conversation   go to state 57
+    name           go to state 58
+
+
+State 355
+
+   26 number: number . ADD number
+   27       | number . SUB number
+   28       | number . DIV number
+   29       | number . MUL number
+   30       | number . MOD number
+   54 boolean: number . GT number
+   55        | number . LT number
+   56        | number . GE number
+   57        | number . LE number
+   58        | number . EQ number
+
+    ADD  shift, and go to state 142
+    SUB  shift, and go to state 143
+    GT   shift, and go to state 171
+    LT   shift, and go to state 172
+    GE   shift, and go to state 173
+    LE   shift, and go to state 174
+    EQ   shift, and go to state 175
+    MOD  shift, and go to state 144
+    MUL  shift, and go to state 145
+    DIV  shift, and go to state 146
+
+
+State 356
+
+   75 command: LSP place COMMA string_var COMMA number_var COMMA number_var COMMA boolean .
+
+    $default  reduce using rule 75 (command)
+
+
+State 357
+
+   77 command: LSPH place COMMA string_var COMMA number_var COMMA number_var COMMA boolean .
+
+    $default  reduce using rule 77 (command)
+
+
+State 358
+
+  102 command: QUAKE number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var .
+
+    $default  reduce using rule 102 (command)
+
+
+State 359
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var . COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 367
+
+
+State 360
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var . COMMA string_var COMMA string_var
+   81        | DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var .
+
+    COMMA  shift, and go to state 368
+
+    $default  reduce using rule 81 (command)
+
+
+State 361
+
+   83 command: BUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA flag .
+
+    $default  reduce using rule 83 (command)
+
+
+State 362
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 369
+
+
+State 363
+
+  111 command: TEXTWRITE place COMMA string_var COMMA number_var COMMA color COMMA string_var .
+
+    $default  reduce using rule 111 (command)
+
+
+State 364
+
+  164 for_contents: FIN for_starts FIN . statement for_end
+
+    $default  reduce using rule 1 (statement)
+
+    statement  go to state 370
+
+
+State 365
+
+  166 for_end: BLOCK_CLOSE .
+
+    $default  reduce using rule 166 (for_end)
+
+
+State 366
+
+  163 for_contents: for_starts statement for_end .
+
+    $default  reduce using rule 163 (for_contents)
+
+
+State 367
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA . number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 371
+    number      go to state 83
+
+
+State 368
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA . string_var COMMA string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 372
+    string      go to state 74
+
+
+State 369
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 373
+    number      go to state 83
+
+
+State 370
+
+    2 statement: statement . COMMENT FIN
+    3          | statement . if_state FIN
+    4          | statement . calculation FIN
+    5          | statement . for_state FIN
+    6          | statement . conversation FIN
+    7          | statement . command FIN
+    8          | statement . function FIN
+    9          | statement . use_function FIN
+   10          | statement . flag_mark FIN
+   11          | statement . FIN
+  164 for_contents: FIN for_starts FIN statement . for_end
+
+    FLAGS            shift, and go to state 3
+    VARIABLE         shift, and go to state 4
+    BLOCK_CLOSE      shift, and go to state 365
+    COMMENT          shift, and go to state 5
+    FIN              shift, and go to state 6
+    IF               shift, and go to state 7
+    FOR              shift, and go to state 8
+    CONVERSATION     shift, and go to state 9
+    DEF              shift, and go to state 10
+    FUNCTION_NAME    shift, and go to state 11
+    NAME_BLOCK_OPEN  shift, and go to state 12
+    LD               shift, and go to state 13
+    CL               shift, and go to state 14
+    BG               shift, and go to state 15
+    MOVIE            shift, and go to state 16
+    LSP              shift, and go to state 17
+    LSPH             shift, and go to state 18
+    PRINT            shift, and go to state 19
+    VSP              shift, and go to state 20
+    CSP              shift, and go to state 21
+    CSPN             shift, and go to state 22
+    MSP              shift, and go to state 23
+    BGMVOL           shift, and go to state 24
+    QUAKE            shift, and go to state 25
+    FOOTERREGIST     shift, and go to state 26
+    DEFBUTTON        shift, and go to state 27
+    BUTTON           shift, and go to state 28
+    SELECT           shift, and go to state 29
+    SELECTN          shift, and go to state 30
+    CHANGESCENE      shift, and go to state 31
+    TEXTDEF          shift, and go to state 32
+    TEXTSPEED        shift, and go to state 33
+    FOOTERON         shift, and go to state 34
+    FOOTEROFF        shift, and go to state 35
+    GOTO             shift, and go to state 36
+    SAVE             shift, and go to state 37
+    LOAD             shift, and go to state 38
+    BGM              shift, and go to state 39
+    BGMSTOP          shift, and go to state 40
+    SE               shift, and go to state 41
+    DELAY            shift, and go to state 42
+    RELEASE          shift, and go to state 43
+    TEXTOFF          shift, and go to state 44
+    TEXTON           shift, and go to state 45
+    TEXTONN          shift, and go to state 46
+    TEXTOFFN         shift, and go to state 47
+    TEXTWRITE        shift, and go to state 48
+
+    flag_mark      go to state 49
+    calculation    go to state 50
+    command        go to state 51
+    function       go to state 52
+    function_name  go to state 53
+    use_function   go to state 54
+    if_state       go to state 55
+    for_state      go to state 56
+    for_end        go to state 374
+    conversation   go to state 57
+    name           go to state 58
+
+
+State 371
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var . COMMA number_var
+
+    COMMA  shift, and go to state 375
+
+
+State 372
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var . COMMA string_var
+
+    COMMA  shift, and go to state 376
+
+
+State 373
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 377
+
+
+State 374
+
+  164 for_contents: FIN for_starts FIN statement for_end .
+
+    $default  reduce using rule 164 (for_contents)
+
+
+State 375
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 378
+    number      go to state 83
+
+
+State 376
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 379
+    string      go to state 74
+
+
+State 377
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 380
+    number      go to state 83
+
+
+State 378
+
+  109 command: FOOTERREGIST string_var COMMA string_var COMMA number_var COMMA string_var COMMA number_var COMMA number_var COMMA number_var .
+
+    $default  reduce using rule 109 (command)
+
+
+State 379
+
+   80 command: DEFBUTTON place COMMA number_var COMMA number_var COMMA string_var COMMA string_var COMMA string_var COMMA string_var .
+
+    $default  reduce using rule 80 (command)
+
+
+State 380
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 381
+
+
+State 381
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 382
+    number      go to state 83
+
+
+State 382
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 383
+
+
+State 383
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 384
+    number      go to state 83
+
+
+State 384
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA number_var
+
+    COMMA  shift, and go to state 385
+
+
+State 385
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 386
+    number      go to state 83
+
+
+State 386
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA number_var
+
+    COMMA  shift, and go to state 387
+
+
+State 387
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . number_var
+
+    NUMBER    shift, and go to state 79
+    VARIABLE  shift, and go to state 80
+    OPEN      shift, and go to state 81
+
+    number_var  go to state 388
+    number      go to state 83
+
+
+State 388
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var . COMMA string_var
+  104        | TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var .
+
+    COMMA  shift, and go to state 389
+
+    $default  reduce using rule 104 (command)
+
+
+State 389
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA . string_var
+
+    STRING    shift, and go to state 70
+    VARIABLE  shift, and go to state 71
+
+    string_var  go to state 390
+    string      go to state 74
+
+
+State 390
+
+  103 command: TEXTDEF place COMMA string_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA number_var COMMA string_var .
+
+    $default  reduce using rule 103 (command)
