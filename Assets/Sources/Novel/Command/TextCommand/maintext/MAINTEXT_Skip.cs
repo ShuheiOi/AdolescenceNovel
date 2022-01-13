@@ -48,6 +48,9 @@ namespace AdolescenceNovel
             int length = tmpStr.Length;
             for (; MAINTEXT_Write.singleton.characterNum < length;)
             {
+                bool checkAdd = false;
+                bool checkAddChar = false;
+                string add_last = "";
 
                 MAINTEXT_Write.singleton.character_now++;
                 char nowChar = tmpStr[MAINTEXT_Write.singleton.characterNum++];
@@ -59,7 +62,13 @@ namespace AdolescenceNovel
                         MAINTEXT_Write.singleton.check_return = true;
                         if (length - MAINTEXT_Write.singleton.characterNum > 3)
                         {
-                            TextData.instance.textbox[ConstData.TextboxMain].text.text += '\n';
+                            checkAdd = true;
+                            if (tmpStr[MAINTEXT_Write.singleton.characterNum] == '、' || tmpStr[MAINTEXT_Write.singleton.characterNum] == '。')
+                            {
+                                checkAddChar = true;
+                                add_last += tmpStr[MAINTEXT_Write.singleton.characterNum];
+                            }
+                            add_last += '\n';
                             MAINTEXT_Write.singleton.character_now = 0;
                         }
                     }
@@ -70,7 +79,16 @@ namespace AdolescenceNovel
                     {
                         if (length - MAINTEXT_Write.singleton.characterNum > 3)
                         {
-                            TextData.instance.textbox[ConstData.TextboxMain].text.text += '\n';
+                            checkAdd = true;
+                            if (MAINTEXT_Write.singleton.characterNum != tmpStr.Length)
+                            {
+                                if (tmpStr[MAINTEXT_Write.singleton.characterNum] == '、' || tmpStr[MAINTEXT_Write.singleton.characterNum] == '。')
+                                {
+                                    checkAddChar = true;
+                                    add_last += tmpStr[MAINTEXT_Write.singleton.characterNum];
+                                }
+                            }
+                            add_last += '\n';
                             MAINTEXT_Write.singleton.character_now = 0;
                         }
                     }
@@ -105,6 +123,14 @@ namespace AdolescenceNovel
                     default:
                         TextData.instance.textbox[ConstData.TextboxMain].text.text += nowChar + TextData.SetRubyOffset_Vertical();
                         break;
+                }
+                if (checkAdd)
+                {
+                    TextData.instance.textbox[ConstData.TextboxMain].text.text += add_last;
+                    if (checkAddChar)
+                    {
+                        MAINTEXT_Write.singleton.characterNum++;
+                    }
                 }
             }
             context.ChangeStatus(new MAINTEXT_Write());

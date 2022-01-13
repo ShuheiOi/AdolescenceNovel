@@ -59,6 +59,7 @@ namespace AdolescenceNovel
         {
             string tmpStr = (string)nowstate.text.Value();
             int length = tmpStr.Length;
+            bool rubyCheck = false;
             //Submitが入力された場合に入力待ちまで飛ばす
             if (KeyConfig.instance.CheckSubmit() || KeyConfig.instance.CheckNovelSkip())
             {
@@ -94,7 +95,6 @@ namespace AdolescenceNovel
                                 add_last += tmpStr[singleton.characterNum];
                             }
                             add_last += '\n';
-                            singleton.character_now = 0;
                         }
                     }
                 }
@@ -114,7 +114,6 @@ namespace AdolescenceNovel
                                 }
                             }
                             add_last += '\n';
-                            singleton.character_now = 0;
                         }
                     }
                 }
@@ -125,7 +124,7 @@ namespace AdolescenceNovel
                         context.ChangeStatus(new MAINTEXT_Wait());
                         break;
                     case '(':
-                        context.ChangeStatus(new MAINTEXT_Ruby(singleton.characterNum, tmpStr));
+                        rubyCheck = true;
                         break;
                     case '{':
                         context.ChangeStatus(new MAINTEXT_Variable());
@@ -141,11 +140,16 @@ namespace AdolescenceNovel
                 }
                 if (checkAdd)
                 {
+                    singleton.character_now = 0;
                     TextData.instance.textbox[ConstData.TextboxMain].text.text += add_last;
                     if (checkAddChar)
                     {
                         singleton.characterNum++;
                     }
+                }
+                if (rubyCheck)
+                {
+                    context.ChangeStatus(new MAINTEXT_Ruby(singleton.characterNum, tmpStr));
                 }
             }
             singleton.nowTime += (int)(Time.deltaTime * 1000);
