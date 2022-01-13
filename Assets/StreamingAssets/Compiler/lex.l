@@ -183,13 +183,13 @@ command_space " "
 {skip};[^\n]* {
 		return(COMMENT);
 	};
-{skip}[a-z][a-zA-Z_]+ {
+{skip}[a-z][a-zA-Z_0-9]+ {
 		yylval.str = yytext;
 		yylval.str = replace_str(yylval.str);
 		fprintf(var_file,"variable2 %s\n",yylval.str.c_str());
 		return(VARIABLE);
 	};
-{skip}[A-Z][a-zA-Z_]+ {
+{skip}[A-Z][a-zA-Z_0-9]+ {
 		yylval.str = yytext;
 		yylval.str = replace_str(yylval.str);
 		return(FUNCTION_NAME);
@@ -200,7 +200,7 @@ command_space " "
 		yylval.str=yytext;
 		return(COLOR);
 	};
-{skip}[^\x01-\xA0][^\x01-\x26^\x2A-\x2E^\x30-\x3F^\x5B-\x5E^\x60]* {
+{skip}[^\x01-\xA0][^\x01-\x26^\x2A-\x2E^\x3A-\x3F^\x5B-\x5E^\x60]* {
 		yylval.str = yytext;
 		yylval.str = replace_str(yylval.str);
 		return(CONVERSATION); };
