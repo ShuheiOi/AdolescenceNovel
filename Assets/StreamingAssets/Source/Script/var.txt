@@ -1,7 +1,7 @@
 variable2 clearData
 assign  = 
 variable2 clearData
-plus гС}
+plus +Њ
 suti 5
 finish 
 
@@ -12,7 +12,7 @@ finish
 variable2 clearData
 assign  = 
 variable2 clearData
-plus лб}
+plus гбЊ
 suti 3
 finish 
 
@@ -301,7 +301,7 @@ finish
 variable a
 assign  =
 variable a
-plus ·
+plus +
 suti 10
 finish 
 

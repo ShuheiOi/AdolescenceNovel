@@ -61,3 +61,5 @@ crashlytics-build.properties
 # Temporary file
 
 Assets/StreamingAssets/Source/tmp/
+
+Assets/Resources/font/
