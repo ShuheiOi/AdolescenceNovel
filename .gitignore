@@ -63,3 +63,12 @@ crashlytics-build.properties
 Assets/StreamingAssets/Source/tmp/
 
 Assets/Resources/font/
+
+# for mac
+.DS_Store
+
+# for VSCode
+.vscode/*
+**/.vscode/*
+
+
