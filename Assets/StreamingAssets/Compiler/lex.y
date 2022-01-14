@@ -45,7 +45,7 @@ SOFTWARE.
 	stack<int> indent_block;
 	string function_name = "";
 	FILE* script_file = fopen("Assets/StreamingAssets/Source/tmp/tmp.txt","w");
-	FILE* log = fopen("Assets/StreamingAssets/Source/tmp/log.txt","w");
+	FILE* logfile = fopen("Assets/StreamingAssets/Source/tmp/log.txt","w");
 	int for_num = 0;
 %}
 
@@ -387,7 +387,7 @@ int main(){
 	sort(keys.begin(),keys.end(),
 		[] (string &s1, string &s2){ return s1.size() > s2.size();});
 	for(int i=0;i<keys.size();i++){
-		fprintf(log,"%s\t%d\n",keys[i].c_str(),jump_list[keys[i]]);
+		fprintf(logfile,"%s\t%d\n",keys[i].c_str(),jump_list[keys[i]]);
 		std::cout << keys[i] << "\t" << jump_list[keys[i]]  <<std::endl;
 		data = regex_replace(data,regex(keys[i]),to_string(jump_list[keys[i]]));
 	}
@@ -395,7 +395,7 @@ int main(){
 		fprintf(finalize_file,"%c",data[i]);
 	}
 	fclose(finalize_file);
-	fclose(log);
+	fclose(logfile);
 	return 0;
 }
 void yyerror(const char *s){
