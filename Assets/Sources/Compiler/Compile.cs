@@ -63,12 +63,24 @@ namespace AdolescenceNovel
             tmpsw.Write(contents);
             tmpsw.Flush();
             tmpsw.Close();
-            string Start_path = "Assets\\StreamingAssets";
             string command_path = $"./Compiler/CompilerExe/execute.exe";
-            Process com = Process.Start("cmd.exe", $"/c {Start_path}\\Compiler\\CompilerExe\\execute.exe < {tmp_file_path}");
+            string sl;  // file path separator slash
+#if UNITY_STANDALONE_WIN
+            sl = "\\";
+#elif UNITY_STANDALONE_OSX
+            sl = "/";
+#endif
+            string Start_path = $"Assets{sl}StreamingAssets";
+#if UNITY_STANDALONE_WIN
+            sl = "\\";
+            Process com = Process.Start("cmd.exe", $"/c {Start_path}{sl}Compiler{sl}CompilerExe{sl}execute.exe < {tmp_file_path}");
+#elif UNITY_STANDALONE_OSX
+            sl = "/";
+            Process com = Process.Start("/bin/bash", $"{Start_path}{sl}Compiler{sl}CompilerExe{sl}execute < {tmp_file_path}");
+#endif
             while (!com.HasExited) ;
             UnityEngine.Debug.Log("コンソール終了");
-            UnityEngine.Debug.Log($"{Start_path}\\Compiler\\CompilerExe\\execute.exe < {tmp_file_path}");
+            UnityEngine.Debug.Log($"{Start_path}{sl}Compiler{sl}CompilerExe{sl}execute.exe < {tmp_file_path}");
             sr = new StreamReader($"{Application.streamingAssetsPath}/Source/Script/script.txt");
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider
             {
