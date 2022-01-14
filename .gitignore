@@ -71,4 +71,7 @@ Assets/Resources/font/
 .vscode/*
 **/.vscode/*
 
+# Work File
+Assets/StreamingAssets/Source/
+Assets/StreamingAssets/ini/
 
