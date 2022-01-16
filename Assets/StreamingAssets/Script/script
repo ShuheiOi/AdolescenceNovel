@@ -1,0 +1,190 @@
+LET vn _0 5
+ADD vvv clearData _0 _1
+LET vv clearData _1
+LET vn _3 1
+BG cn #000000 _3
+LET vn _5 3
+ADD vvv clearData _5 _6
+LET vv clearData _6
+MAINTEXT s こんにちは{clearData}
+MAINTEXT s バックグラウンド表示：１
+LET vn _10 10
+LET vn _11 1000
+BG cnn #FFFFFF _10 _11
+MAINTEXT s バックグラウンド表示：２
+LET vs _14 TestImage/background
+LET vn _15 1
+BG sn _14 _15
+MAINTEXT s バックグラウンド表示：３
+LET vs _18 TestImage/background2
+LET vn _19 10
+LET vn _20 1000
+BG snn _18 _19 _20
+MAINTEXT s バックグラウンド表示：４
+MAINTEXT s ああああああああああああああああああああああああああああああああああああああああ(あああ/あああああああああ)あああああ(あああ/あああああああああ)
+LET vs _24 TestImage/test2
+LET vn _25 1
+LD psn l _24 _25
+MAINTEXT s 画像表示（固定）：１
+LET vs _28 TestImage/test1
+LET vn _29 10
+LET vn _30 1000
+LD psnn r _28 _29 _30
+MAINTEXT s 画像表示（固定）：２
+LET vn _33 1
+CL pn l _33
+MAINTEXT s 画像消去（固定）：１
+LET vn _36 10
+LET vn _37 1000
+CL pnn r _36 _37
+MAINTEXT s 画像消去（固定）：２
+LET vs _40 TestImage/test1
+LET vn _41 0
+LET vn _42 0
+LSP ssnn rightPicture _40 _41 _42
+LET vs _44 TestImage/test2
+LET vn _45 100
+LET vn _46 0
+LSP ssnn leftPicture _44 _45 _46
+MAINTEXT s 画像表示（自由座標）：１
+LET vn _49 1
+PRINT n _49
+MAINTEXT s 表示処理
+CSP s rightPicture
+LET vn _53 10
+LET vn _54 1000
+PRINT nn _53 _54
+MAINTEXT s 削除処理
+LET vs _57 TestImage/test1
+LET vn _58 0
+LET vn _59 0
+LSP ssnn rightPicture _57 _58 _59
+MAINTEXT s 画像表示（自由座標）：１
+LET vn _62 1
+PRINT n _62
+CSP
+MAINTEXT s 削除処理
+LET vn _66 1
+PRINT n _66
+LET vs _68 TestImage/test1
+LET vn _69 0
+LET vn _70 0
+LSPH ssnn noRightPicture _68 _69 _70
+LET vs _72 TestImage/test2
+LET vn _73 1000
+LET vn _74 0
+LSPH ssnn noLeftPicture _72 _73 _74
+LET vn _76 1
+PRINT n _76
+MAINTEXT s 画像表示（非表示）（自由座標）
+LET vn _79 1
+VSP sn noRightPicture _79
+LET vn _81 10
+LET vn _82 1000
+PRINT nn _81 _82
+LET vn _84 1
+VSP sn noLeftPicture _84
+LET vn _86 10
+LET vn _87 1000
+PRINT nn _86 _87
+MAINTEXT s 画像表示変更
+LET vn _90 0
+LET vn _91 10
+MSP snn noRightPicture _90 _91
+LET vn _93 10
+LET vn _94 100
+PRINT nn _93 _94
+MAINTEXT s 画像の移動
+MAINTEXT ss あいうえお こんにちは
+MAINTEXT s 　(超電磁砲/レールガン)
+LET vs _99 TestSound/title
+BGM s _99
+BGMSTOP
+LET vs _102 TestSound/critical
+SE s _102
+LET vs _104 TestSound/Coffee-45358
+MOVIE s _104
+LET vn _106 100
+LET vn _107 50
+LET vs _108 TestImage/textbox
+DEFBUTTON snns firstButton _106 _107 _108
+LET vn _110 0
+LET vn _111 0
+LET vs _112 Hello
+BUTTON pnnsn firstButton _110 _111 _112 120
+LET vn _114 0
+LET vn _115 50
+LET vs _116 World
+BUTTON pnnsn firstButton _114 _115 _116 121
+SELECT
+GOTO n 78
+MAINTEXT s ふぁーすと
+MAINTEXT s せかんど
+LET vs _122 TestImage/textbox
+LET vn _123 0
+LET vn _124 0
+LET vn _125 100
+LET vn _126 50
+LET vn _127 0
+LET vn _128 0
+LET vn _129 100
+LET vn _130 50
+LET vn _131 100
+TEXTDEF ssnnnnnnnnn testBox _122 _123 _124 _125 _126 _127 _128 _129 _130 _131
+LET vs _133 こんにちは
+LET vn _134 50
+LET vs _135 font/NotoSansJP-Black_SDF-large
+TEXTWRITE vsnss testBox _133 _134 #000000 _135
+TEXTOFF
+LET vs _138 TestImage/textbox
+LET vs _139 これがフッターです
+LET vn _140 60
+LET vs _141 font/NotoSansJP-Black_SDF-large
+LET vn _142 50
+LET vn _143 0
+LET vn _144 0
+FOOTERREGIST ssnsnnn _138 _139 _140 _141 _142 _143 _144
+FOOTERON
+LET vn _147 1000000
+LET vv a _147
+LET vn _149 5
+LET vn _150 3
+ADD vvv _149 _150 _151
+LET vv a _151
+LET vn _153 10
+ADD vvv a _153 _154
+LET vv a _154
+LET vn _156 5
+GT vvv a _156 _157
+NOTCOMPARE vn _157 161
+FUNCTION
+GOTO n 187
+LET vn _161 8
+GT vvv a _161 _162
+NOTCOMPARE vn _162 165
+MAINTEXT s さようなら
+LET vn _165 1
+LET vv b _165
+LET vn _167 0
+LET vv i _167
+LET vn _169 10
+LT vvv i _169 _170
+NOTCOMPARE vn _170 185
+LET vn _172 1
+ADD vvv i _172 _173
+LET vv i _173
+LET vn _175 2
+EQ vvv i _175 _176
+NOTCOMPARE vn _176 179
+GOTO n 184
+MAINTEXT s 今の値は{i}です。
+LET vn _180 3
+EQ vvv i _180 _181
+NOTCOMPARE vn _181 184
+GOTO n 185
+GOTO n 170
+MAINTEXT s 外に出ました。
+END
+MAINTEXT s こんにちは！
+RETURN
+

@@ -46,31 +46,31 @@ namespace AdolescenceNovel
                 return;
             }
             int num = filename.BinarySearch("00.txt");
-            string script_path = $"{Application.streamingAssetsPath}/Source/Script/script.txt";
+            string script_path = $"{Application.streamingAssetsPath}/Script/script";
             //初期コード
-            sr = new StreamReader($"{Application.streamingAssetsPath}/Source/{filename[num]}");
+            sr = new StreamReader($"Assets/NovelScripts/{filename[num]}");
             string contents = sr.ReadToEnd();
             //それ以外のコード
             filename.RemoveAt(num);
             foreach (string name in filename)
             {
-                sr = new StreamReader($"{Application.streamingAssetsPath}/Source/{name}");
-                contents += sr.ReadToEnd() + "\r\n";
+                sr = new StreamReader($"Assets/NovelScripts/{name}");
+                contents += sr.ReadToEnd() + "\n";
                 sr.Close();
             }
-            string tmp_file_path = $"{Application.streamingAssetsPath}/Source/tmp/tmpinput.txt";
+            string tmp_file_path = $"Assets/NovelScripts/tmp/tmpinput.txt";
             StreamWriter tmpsw = new StreamWriter(tmp_file_path);
             tmpsw.Write(contents);
             tmpsw.Flush();
             tmpsw.Close();
-            string command_path = $"./Compiler/CompilerExe/execute.exe";
+            string command_path = $"Assets/Compiler/CompilerExe/execute.exe";
             string sl;  // file path separator slash
 #if UNITY_STANDALONE_WIN
             sl = "\\";
 #elif UNITY_STANDALONE_OSX
             sl = "/";
 #endif
-            string Start_path = $"Assets{sl}StreamingAssets";
+            string Start_path = $"Assets";
 #if UNITY_STANDALONE_WIN
             sl = "\\";
             Process com = Process.Start("cmd.exe", $"/c {Start_path}{sl}Compiler{sl}CompilerExe{sl}execute.exe < {tmp_file_path}");
@@ -81,7 +81,7 @@ namespace AdolescenceNovel
             while (!com.HasExited) ;
             UnityEngine.Debug.Log("コンソール終了");
             UnityEngine.Debug.Log($"{Start_path}{sl}Compiler{sl}CompilerExe{sl}execute.exe < {tmp_file_path}");
-            sr = new StreamReader($"{Application.streamingAssetsPath}/Source/Script/script.txt");
+            sr = new StreamReader(script_path);
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider
             {
                 BlockSize = 128,
@@ -123,7 +123,7 @@ namespace AdolescenceNovel
                 Padding=PaddingMode.PKCS7,
             };
             ICryptoTransform encryptIni = aes.CreateEncryptor();
-            StreamReader srIni = new StreamReader(Application.streamingAssetsPath + "/ini/maintext.ini");
+            StreamReader srIni = new StreamReader("Assets/ini/maintext.ini");
             string textIni = srIni.ReadToEnd();
             byte[] destIni = Encoding.Unicode.GetBytes(textIni);
             sw = new StreamWriter(Application.streamingAssetsPath + "/ini/Emaintext.ini",false);
@@ -136,7 +136,7 @@ namespace AdolescenceNovel
         }
         public static List<ICommand> DoCompile()
         {
-            string output_name = $"{Application.streamingAssetsPath}/Source/Script/script.txt";
+            string output_name = $"{Application.streamingAssetsPath}/Script/script";
             StreamReader sr = new StreamReader(output_name);
 
             AesCryptoServiceProvider aes = new AesCryptoServiceProvider

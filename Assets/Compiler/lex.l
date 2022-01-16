@@ -29,7 +29,7 @@ SOFTWARE.
 	#include<stdlib.h>
 	#include"parser.h"
 	#include"lex.tab.h"
-	FILE* var_file = fopen("Assets/StreamingAssets/Source/Script/var.txt","w");
+	FILE* var_file = fopen("Assets/NovelScripts/tmp/var.txt","w");
 	char* replace(char* str){
 		int length = sizeof(str);
 		char* ret = (char*)malloc(sizeof(char)*length);

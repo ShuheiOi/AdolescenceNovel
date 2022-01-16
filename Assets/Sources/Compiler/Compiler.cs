@@ -11,7 +11,7 @@ namespace AdolescenceNovel
         public static List<string> file_list = new List<string>();
         private List<string> FullPath()
         {
-            string[] list = Directory.GetFiles(Application.streamingAssetsPath + "/Source/", "*.txt");
+            string[] list = Directory.GetFiles("Assets/NovelScripts/", "*.txt");
             List<string> ret = new List<string>();
             string[] temp;
             for (int i = 0; i < list.Length; i++)
@@ -44,7 +44,7 @@ namespace AdolescenceNovel
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
-            EditorGUILayout.TextArea(Application.streamingAssetsPath + "/Source/",GUIStyle.none);
+            EditorGUILayout.TextArea("Assets/NovelScripts/", GUIStyle.none);
             if (print_file_name = EditorGUILayout.Toggle("ファイル一覧を表示する", print_file_name))
             {
                 if (Compiler.file_list.Count > 0)

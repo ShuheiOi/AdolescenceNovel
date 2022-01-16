@@ -84,8 +84,8 @@
 	map<string,int> jump_list;
 	stack<int> indent_block;
 	string function_name = "";
-	FILE* script_file = fopen("Assets/StreamingAssets/Source/tmp/tmp.txt","w");
-	FILE* logfile = fopen("Assets/StreamingAssets/Source/tmp/log.txt","w");
+	FILE* script_file = fopen("Assets/NovelScripts/tmp/tmp.txt","w");
+	FILE* logfile = fopen("Assets/NovelScripts/tmp/log.txt","w");
 	int for_num = 0;
 
 #line 92 "lex.tab.c" /* yacc.c:339  */
@@ -2900,8 +2900,8 @@ yyreturn:
 int main(){
 	yyparse();
 	fclose(script_file);
-	script_file = fopen("Assets/StreamingAssets/Source/tmp/tmp.txt","r");
-	FILE* finalize_file = fopen("Assets/StreamingAssets/Source/Script/script.txt","w");
+	script_file = fopen("Assets/NovelScripts/tmp/tmp.txt","r");
+	FILE* finalize_file = fopen("Assets/StreamingAssets/Script/script","w");
 	char str[256];
 	string data = "";
 	while(fgets(str,256,script_file) != NULL){
