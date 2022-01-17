@@ -71,6 +71,7 @@ Assets/Resources/font/
 
 # Work File
 Assets/NovelScripts/*.txt
+Assets/NovelScripts/tmp/*.txt
 Assets/StreamingAssets/ini/
 Assets/StreamingAssets/SaveData/GlobalDataSaveData
 Assets/StreamingAssets/Script/script
