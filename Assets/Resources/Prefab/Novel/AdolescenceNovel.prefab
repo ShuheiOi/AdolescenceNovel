@@ -113,9 +113,6 @@ GameObject:
   - component: {fileID: 4805947503408242522}
   - component: {fileID: 4805947503408242524}
   - component: {fileID: 4805947503408242526}
-  - component: {fileID: 4805947503408242592}
-  - component: {fileID: 4805947503408242527}
-  - component: {fileID: 4805947503408242593}
   m_Layer: 0
   m_Name: NovelMain
   m_TagString: Untagged
@@ -178,42 +175,6 @@ MonoBehaviour:
   nowFile: 
   stop: 0
   usingAnotherScene: 0
---- !u!114 &4805947503408242592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805947503408242523}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bda83d002a4b7b04ca72ef5922b6f587, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4805947503408242527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805947503408242523}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 948c5b646b7c4e1499ad78d8e3be5bf9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4805947503408242593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4805947503408242523}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 140993557dc968e43a9bfb1597d9ff3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &4805947503429736811
 GameObject:
   m_ObjectHideFlags: 0
