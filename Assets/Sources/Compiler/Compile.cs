@@ -32,12 +32,12 @@ namespace AdolescenceNovel
 {
     public class Compile
     {
-        private const string AesIV = @"!QAZ2WSX#EDC4RFV";
-        private const string AesKey = @"5TGB&YHN7UJM(IK<";
-        public const string AesIV2 = @"!QAZ2WSX#EDC4RFV";
-        public const string AesKey2 = @"5TGB&YHN7UJM(IK<";
+        private const string AesIV =  @"Fmf?)U,o\AiDlYdR";
+        private const string AesKey = @"])JwP|T]%BsG{BVx";
+        public const string AesIV2 =  @"z[#R5;P@+[$'U%,Y";
+        public const string AesKey2 = @"v?]8LW$[^CN}Jiku";
         const int ATTR_CHECK = 1;
-        public static bool encryption = false;
+        public static bool encryption = true;
         public Compile(List<string> filename)
         {
             StreamReader sr;
@@ -122,12 +122,12 @@ namespace AdolescenceNovel
                 Mode = CipherMode.CBC,
                 Padding=PaddingMode.PKCS7,
             };
-            ICryptoTransform encryptIni = aes.CreateEncryptor();
+            ICryptoTransform encryptIni = aesCrypto.CreateEncryptor();
             StreamReader srIni = new StreamReader(Application.streamingAssetsPath + "/ini/maintext.ini");
             string textIni = srIni.ReadToEnd();
             byte[] destIni = Encoding.Unicode.GetBytes(textIni);
             sw = new StreamWriter(Application.streamingAssetsPath + "/ini/Emaintext.ini",false);
-            sw.WriteLine(System.Convert.ToBase64String(encrypt.TransformFinalBlock(destIni, 0, destIni.Length)));
+            sw.WriteLine(System.Convert.ToBase64String(encryptIni.TransformFinalBlock(destIni, 0, destIni.Length)));
             sw.Flush();
             sw.Close();
 
