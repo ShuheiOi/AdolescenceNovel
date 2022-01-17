@@ -60,8 +60,6 @@ crashlytics-build.properties
 
 # Temporary file
 
-Assets/StreamingAssets/Source/tmp/
-
 Assets/Resources/font/
 
 # for mac
@@ -72,6 +70,7 @@ Assets/Resources/font/
 **/.vscode/*
 
 # Work File
-Assets/StreamingAssets/Source/
+Assets/NovelScripts/*.txt
 Assets/StreamingAssets/ini/
-
+Assets/StreamingAssets/SaveData/GlobalDataSaveData
+Assets/StreamingAssets/Script/script
