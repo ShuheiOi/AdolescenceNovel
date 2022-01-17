@@ -63,7 +63,7 @@ namespace AdolescenceNovel
                         if (length - MAINTEXT_Write.singleton.characterNum > 3)
                         {
                             checkAdd = true;
-                            if (tmpStr[MAINTEXT_Write.singleton.characterNum] == '、' || tmpStr[MAINTEXT_Write.singleton.characterNum] == '。')
+                            if (ConstData.instance.ContainProhibit(tmpStr[MAINTEXT_Write.singleton.characterNum]))
                             {
                                 checkAddChar = true;
                                 add_last += tmpStr[MAINTEXT_Write.singleton.characterNum];
@@ -82,7 +82,7 @@ namespace AdolescenceNovel
                             checkAdd = true;
                             if (MAINTEXT_Write.singleton.characterNum != tmpStr.Length)
                             {
-                                if (tmpStr[MAINTEXT_Write.singleton.characterNum] == '、' || tmpStr[MAINTEXT_Write.singleton.characterNum] == '。')
+                                if (ConstData.instance.ContainProhibit(tmpStr[MAINTEXT_Write.singleton.characterNum]))
                                 {
                                     checkAddChar = true;
                                     add_last += tmpStr[MAINTEXT_Write.singleton.characterNum];

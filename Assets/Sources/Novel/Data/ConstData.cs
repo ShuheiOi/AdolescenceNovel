@@ -234,6 +234,9 @@ namespace AdolescenceNovel
         public float ruby_percent;
         public float ruby_rate;
 
+        [NonSerialized]
+        private readonly List<char> prohibitChar = new List<char>();
+
         public Hashtable PLACE = new Hashtable();
 
         public enum ALIGN
@@ -402,9 +405,17 @@ namespace AdolescenceNovel
                             }
                         }
                         break;
+                    case "prohibition":
+                        prohibitChar.Add(data[1][0]);
+                        break;
                 }
             }
             sr.Close();
+        }
+
+        public bool ContainProhibit(char s)
+        {
+            return prohibitChar.Contains(s);
         }
         
         public (int colorR, int colorG, int colorB, int colorA) GetIntRgbaFromString(string rawRgba)
