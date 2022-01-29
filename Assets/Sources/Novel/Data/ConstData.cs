@@ -230,6 +230,9 @@ namespace AdolescenceNovel
         [System.NonSerialized]
         public GameObject TextGameObject;
 
+        [System.NonSerialized]
+        public Dictionary<string, string> KeyCheck;
+
         [NonSerialized]
         public float ruby_percent;
         public float ruby_rate;
@@ -277,6 +280,7 @@ namespace AdolescenceNovel
             all_line = all_line.Replace("\t", "");
             all_line = all_line.Replace("\r", "");
             string[] lists = all_line.Split('\n');
+            KeyCheck = new Dictionary<string, string>();
             foreach(string str in lists)
             {
                 if (str.Length == 0) continue;
@@ -401,6 +405,9 @@ namespace AdolescenceNovel
                                 }
                             }
                         }
+                        break;
+                    case "key":
+                        KeyCheck.Add(data[1], data[2]);
                         break;
                 }
             }

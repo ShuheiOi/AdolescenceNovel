@@ -62,6 +62,18 @@ namespace AdolescenceNovel
             return instance.usingAnotherScene;
         }
 
+        public void CheckKey()
+        {
+            foreach(KeyValuePair<string,string> tmp in ConstData.instance.KeyCheck)
+            {
+                if (KeyConfig.instance.CheckKey(tmp.Key))
+                {
+                    ChangeScene();
+                    UnityEngine.SceneManagement.SceneManager.LoadScene(tmp.Value, UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                }
+            }
+        }
+
         [System.NonSerialized]
         public List<ICommand> command = new List<ICommand>();
 

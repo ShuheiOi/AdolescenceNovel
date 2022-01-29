@@ -1,7 +1,7 @@
 variable2 clearData
 assign  = 
 variable2 clearData
-plus ãÑÆ
+plus sÚ
 suti 5
 finish 
 
@@ -12,7 +12,7 @@ finish
 variable2 clearData
 assign  = 
 variable2 clearData
-plus ëáÆ
+plus sÚ
 suti 3
 finish 
 

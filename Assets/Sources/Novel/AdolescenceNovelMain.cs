@@ -42,6 +42,7 @@ namespace AdolescenceNovel
         // Update is called once per frame
         void Update()
         {
+            if(!SystemData.instance.CheckUsingScene())SystemData.instance.CheckKey();
             if(!SystemData.instance.CheckUsingScene())SystemData.instance.Execute();
         }
 

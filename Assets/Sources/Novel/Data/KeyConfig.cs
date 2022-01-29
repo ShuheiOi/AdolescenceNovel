@@ -84,5 +84,10 @@ namespace AdolescenceNovel
         {
             return Input.GetButtonDown(instance.DownKey);
         }
+
+        public bool CheckKey(string str)
+        {
+            return Input.GetButtonDown(str);
+        }
     }
 }
