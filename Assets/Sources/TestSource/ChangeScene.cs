@@ -20,36 +20,25 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
- */
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace AdolescenceNovel
+
+public class ChangeScene : MonoBehaviour
 {
-    public class AdolescenceNovelMain : MonoBehaviour
+    // Start is called before the first frame update
+    void Start()
     {
-        private void Awake()
-        {
-            SystemData.instance.ScreenSizeInit();
-        }
-        // Start is called before the first frame update
-        void Start()
-        {
-            SystemData.instance.command = Compiler.DoGame();
-        }
+        
+    }
 
-        // Update is called once per frame
-        void Update()
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if(!SystemData.instance.CheckUsingScene())SystemData.instance.CheckKey();
-            if(!SystemData.instance.CheckUsingScene())SystemData.instance.Execute();
-        }
-
-        private void OnApplicationQuit()
-        {
-            //グローバルデータ反映
-            VariableData.instance.UpdateStaticData();
+            AdolescenceNovel.SaveLoadSystem.BackToScene("Test");
         }
     }
 }

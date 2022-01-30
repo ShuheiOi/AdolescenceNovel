@@ -25,31 +25,25 @@ SOFTWARE.
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace AdolescenceNovel
 {
-    public class AdolescenceNovelMain : MonoBehaviour
+    public class SaveLoadSystem : MonoBehaviour
     {
-        private void Awake()
+        public void Save(string name)
         {
-            SystemData.instance.ScreenSizeInit();
+            SaveData sd = new SaveData(name);
+            sd.Save();
         }
-        // Start is called before the first frame update
-        void Start()
+        public void Load(string name)
         {
-            SystemData.instance.command = Compiler.DoGame();
+            SaveData sd = new SaveData(name);
+            sd.Load();
         }
-
-        // Update is called once per frame
-        void Update()
+        public static void BackToScene(string name)
         {
-            if(!SystemData.instance.CheckUsingScene())SystemData.instance.CheckKey();
-            if(!SystemData.instance.CheckUsingScene())SystemData.instance.Execute();
-        }
-
-        private void OnApplicationQuit()
-        {
-            //グローバルデータ反映
-            VariableData.instance.UpdateStaticData();
+            SceneManager.UnloadSceneAsync(name);
+            SystemData.instance.ChangeScene();
         }
     }
 }
