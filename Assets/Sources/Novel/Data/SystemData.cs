@@ -104,6 +104,11 @@ namespace AdolescenceNovel
             _instance.stop = sysdata.stop;
             _instance.usingAnotherScene = sysdata.usingAnotherScene;
         }
+        public static void Save(string name)
+        {
+            SaveData sd = new SaveData(name);
+            sd.Save();
+        }
 
         public void ScreenSizeInit()
         {
